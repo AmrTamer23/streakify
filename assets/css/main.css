@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Young+Serif&display=swap");
+
+html {
+  box-sizing: border-box;
+  @apply bg-tan font-young antialiased;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  min-height: 100vh;
+}
+
+img {
+  width: 100%;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply w-fit;
+}
+
+h1 {
+  @apply text-5xl lg:text-6xl;
+}
+h2 {
+  @apply text-4xl lg:text-5xl;
+}
+h3 {
+  @apply text-3xl lg:text-4xl;
+}
+h4 {
+  @apply text-2xl lg:text-3xl;
+}
+h5 {
+  @apply text-xl lg:text-2xl;
+}
+h6 {
+  @apply text-lg lg:text-xl;
+}
