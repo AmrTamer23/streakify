@@ -4,9 +4,7 @@ import NavBar from "./components/NavBar.vue";
 
 <template>
   <main class="flex h-screen flex-col">
-    <div>
-      <NavBar />
-    </div>
+    <NavBar />
     <section
       class="flex flex-1 flex-col justify-center gap-8 font-semibold text-neutral-600 *:mx-auto *:text-center"
     >
