@@ -1,36 +1,13 @@
 <script lang="ts" setup>
-import { Button } from "@/components/ui/button";
+import NavBar from "./components/NavBar.vue";
 import "./assets/app.css";
 </script>
 
 <template>
   <main class="p-6">
-    <nav class="flex justify-between items-center">
-      <span
-        class="font-semibold font-pt-mono text-3xl text-[#FFC278] pointer-events-none select-none"
-      >
-        Streakify
-      </span>
-      <ul class="flex items-center gap-2">
-        <li>
-          <Button
-            size="lg"
-            variant="default"
-            class="bg-amber-500 text-neutral-800 font-semibold hover:bg-amber-600 text-lg"
-            aria-label="Sign Up"
-            >Sign Up</Button
-          >
-        </li>
-        <li>
-          <Button
-            size="lg"
-            variant="ghost"
-            class="font-semibold text-lg"
-            aria-label="Login"
-            >Login</Button
-          >
-        </li>
-      </ul>
-    </nav>
+    <NavBar />
+    <div class="pt-6">
+      <NuxtPage />
+    </div>
   </main>
 </template>
