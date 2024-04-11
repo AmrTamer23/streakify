@@ -37,7 +37,7 @@ const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
         </NuxtLink>
       </li>
     </ul>
-    <div>
+    <div class="md:hidden">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button class="border-0 w-14" @click="toggleNav()">
