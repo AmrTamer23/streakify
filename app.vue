@@ -4,10 +4,8 @@ import "./assets/app.css";
 </script>
 
 <template>
-  <main class="p-6">
-    <NavBar />
-    <div class="pt-6">
-      <NuxtPage />
-    </div>
+  <main class="p-6 flex flex-col h-screen">
+    <NavBar class="flex-grow-0" />
+    <NuxtPage class="pt-6 flex-grow" />
   </main>
 </template>

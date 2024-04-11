@@ -4,12 +4,13 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev -o",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@vueuse/core": "^10.9.0",
     "ajv": "^7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "nuxt-icon": "^0.6.10",
     "shadcn-nuxt": "^0.10.2",
     "typescript": "^5.4.4"
   }
