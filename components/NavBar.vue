@@ -13,7 +13,7 @@ const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
         Streakify
       </span>
     </NuxtLink>
-    <ul class="flex items-center gap-2 max-sm:hidden">
+    <ul class="flex items-center gap-2 max-md:hidden">
       <li>
         <NuxtLink to="/signup">
           <Button
@@ -37,7 +37,7 @@ const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
         </NuxtLink>
       </li>
     </ul>
-    <div class="md:hidden">
+    <div class="lg:hidden">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button class="border-0 w-14" @click="toggleNav()">
