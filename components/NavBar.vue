@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
+const isNavOpen = ref(false);
+const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
 </script>
 
 <template>
@@ -11,7 +13,7 @@ import { Button } from "@/components/ui/button";
         Streakify
       </span>
     </NuxtLink>
-    <ul class="flex items-center gap-2">
+    <ul class="flex items-center gap-2 max-sm:hidden">
       <li>
         <NuxtLink to="/signup">
           <Button
@@ -35,5 +37,50 @@ import { Button } from "@/components/ui/button";
         </NuxtLink>
       </li>
     </ul>
+    <div>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Button class="border-0 w-14" @click="toggleNav()">
+            <Icon
+              name="streamline:interface-setting-menu-2-button-parallel-horizontal-lines-menu-navigation-staggered-three-hamburger"
+              size="1.3rem"
+              v-if="!isNavOpen"
+            >
+            </Icon>
+            <span v-else class="text-[1.3rem]"> X </span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          class="bg-background mr-6 min-w-0 w-52 border-amber-500 p-0"
+          @close-auto-focus="toggleNav()"
+        >
+          <DropdownMenuItem class="p-0">
+            <Button
+              class="border-0 w-full py-6 rounded-none text-start group/loginBtnMobile"
+            >
+              <NuxtLink
+                class="text-lg text-white w-full group-active/loginBtnMobile:text-black"
+                to="/login"
+                >Login</NuxtLink
+              >
+            </Button>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator
+            class="bg-amber-500/50 my-0"
+          ></DropdownMenuSeparator>
+          <DropdownMenuItem class="p-0">
+            <Button
+              class="border-0 w-full py-6 rounded-none text-start group/signUpBtnMobile"
+            >
+              <NuxtLink
+                class="text-lg text-white w-full group-active/signUpBtnMobile:text-black"
+                to="/signup"
+                >Sign Up</NuxtLink
+              >
+            </Button>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   </nav>
 </template>
