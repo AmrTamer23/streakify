@@ -1,6 +1,12 @@
 <script lang="ts" setup>
 import NavBar from "./components/NavBar.vue";
 import "./assets/app.css";
+
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} - Streakify` : "Streakify";
+  },
+});
 </script>
 
 <template>
