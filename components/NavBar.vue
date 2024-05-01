@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { Button } from "@/components/ui/button";
 const isNavOpen = ref(false);
 const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
@@ -15,7 +16,7 @@ const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
     </NuxtLink>
     <ul class="flex items-center gap-2 max-md:hidden">
       <li>
-        <NuxtLink to="/signup">
+        <NuxtLink to="/register">
           <Button
             size="lg"
             variant="default"

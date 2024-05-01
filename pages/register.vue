@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 //@ts-ignore
 definePageMeta({
   middleware: ["auth"],
@@ -6,29 +6,69 @@ definePageMeta({
 import { Input } from "@/components/ui/input/index";
 import { Button } from "@/components/ui/button/index";
 import { Separator } from "@/components/ui/separator/index";
+import { useToast } from "@/components/ui/toast/use-toast";
+import { Toaster } from "@/components/ui/toast";
 import { useState } from "nuxt/app";
-const email = useState<string>("email");
-const password = useState<string>("password");
 //@ts-ignore
 const client = useSupabaseClient();
+const username = useState<string>("username");
+const name = useState<string>("name");
+const email = useState<string>("email");
+const password = useState<string>("password");
+const errMsg = useState<string>("errMsg");
 
-const signIn = async () => {
-  const { data, error } = await client.auth.signInWithPassword({
-    email: email.value,
-    password: password.value,
-  });
-  console.log(data, error);
-};
+const { toast } = useToast();
+
+async function signUp() {
+  try {
+    const { data, error } = await client.auth.signUp({
+      email: email.value,
+      password: password.value,
+    });
+
+    if (error) throw error;
+  } catch (error) {
+    errMsg.value = (error as Error).message;
+    console.error(errMsg.value);
+    toast({
+      title: "Error",
+      description: errMsg.value,
+      variant: "destructive",
+    });
+  }
+}
 </script>
 
 <template>
   <main class="*:mx-auto flex flex-col gap-4 *:max-w-lg h-full justify-center">
     <div>
       <h1 class="text-4xl font-semibold">
-        Welcome Back<span class="text-amber-500">!</span>
+        Welcome <span class="text-amber-500">!</span>
       </h1>
     </div>
-    <form @submit.prevent="signIn" class="flex flex-col gap-6">
+    <form @submit.prevent="signUp" class="flex flex-col gap-6">
+      <div class="flex gap-4 items-center">
+        <fieldset>
+          <label for="name" class="sr-only"> Name </label>
+          <Input
+            name="name"
+            type="text"
+            placeholder="Name"
+            class="invalid:border-red-700 focus:border-amber-500"
+            v-model="name"
+          />
+        </fieldset>
+        <fieldset>
+          <label for="username" class="sr-only"> Username </label>
+          <Input
+            name="username"
+            type="text"
+            placeholder="username"
+            class="invalid:border-red-700 focus:border-amber-500"
+            v-model="username"
+          />
+        </fieldset>
+      </div>
       <fieldset>
         <label for="email" class="sr-only"> Email </label>
         <Input
@@ -50,13 +90,13 @@ const signIn = async () => {
         />
       </fieldset>
       <Button type="submit" size="lg" class="w-full text-lg font-semibold"
-        >Login</Button
+        >Register</Button
       >
     </form>
     <div>
       <p>
-        Don't have an account?
-        <NuxtLink to="/signup" class="hover:text-amber-500">Sign up</NuxtLink>
+        Have an account?
+        <NuxtLink to="/login" class="hover:text-amber-500">Login</NuxtLink>
       </p>
     </div>
     <div class="flex items-center w-full">
@@ -85,11 +125,5 @@ const signIn = async () => {
       </Button>
     </div>
   </main>
+  <Toaster />
 </template>
-
-<style>
-fieldset,
-form {
-  width: 100%;
-}
-</style>
