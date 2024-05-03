@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // import { useHead } from "";
-import NavBar from "./components/NavBar.vue";
+import NavBar from "@/components/NavBar.vue";
 import Toaster from "@/components/ui/toast/Toaster.vue";
 import "./assets/app.css";
 

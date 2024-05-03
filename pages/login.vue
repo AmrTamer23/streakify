@@ -14,8 +14,8 @@ const client = useSupabaseClient();
 
 const signIn = async () => {
   const { data, error } = await client.auth.signInWithPassword({
-    email: email.value,
-    password: password.value,
+    email: email?.value,
+    password: password?.value,
   });
   console.log(data, error);
 };
@@ -56,7 +56,7 @@ const signIn = async () => {
     <div>
       <p>
         Don't have an account?
-        <NuxtLink to="/signup" class="hover:text-amber-500">Sign up</NuxtLink>
+        <NuxtLink to="/register" class="hover:text-amber-500">Sign up</NuxtLink>
       </p>
     </div>
     <div class="flex items-center w-full">
