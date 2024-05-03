@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button/index";
 import { Separator } from "@/components/ui/separator/index";
 import { useToast } from "@/components/ui/toast/use-toast";
 import { Toaster } from "@/components/ui/toast";
-import { useState } from "nuxt/app";
+import { useRouter, useState } from "nuxt/app";
 //@ts-ignore
 const client = useSupabaseClient();
 const username = useState<string>("username");
@@ -17,6 +17,7 @@ const email = useState<string>("email");
 const password = useState<string>("password");
 const errMsg = useState<string>("errMsg");
 
+const router = useRouter();
 const { toast } = useToast();
 
 async function signUp() {
@@ -36,6 +37,7 @@ async function signUp() {
         }),
         method: "POST",
       });
+      router.push("/login");
     }
 
     if (error) throw error;

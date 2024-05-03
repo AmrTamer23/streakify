@@ -6,19 +6,34 @@ definePageMeta({
 import { Input } from "@/components/ui/input/index";
 import { Button } from "@/components/ui/button/index";
 import { Separator } from "@/components/ui/separator/index";
-import { useState } from "nuxt/app";
+import { useRouter, useState } from "nuxt/app";
+import { toast, Toaster } from "~/components/ui/toast";
 const email = useState<string>("email");
 const password = useState<string>("password");
+const errMsg = useState<string>("errMsg");
+
+const router = useRouter();
+
 //@ts-ignore
 const client = useSupabaseClient();
 
-const signIn = async () => {
-  const { data, error } = await client.auth.signInWithPassword({
-    email: email?.value,
-    password: password?.value,
-  });
-  console.log(data, error);
-};
+async function signIn() {
+  try {
+    const { data, error } = await client.auth.signInWithPassword({
+      email: email.value,
+      password: password.value,
+    });
+    if (!error) router.push("/dashboard");
+  } catch (error) {
+    errMsg.value = (error as Error).message;
+    console.error(errMsg.value);
+    toast({
+      title: "Error",
+      description: errMsg.value,
+      variant: "destructive",
+    });
+  }
+}
 </script>
 
 <template>
@@ -85,6 +100,7 @@ const signIn = async () => {
       </Button>
     </div>
   </main>
+  <Toaster />
 </template>
 
 <style>

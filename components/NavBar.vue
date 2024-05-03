@@ -3,8 +3,11 @@ import { ref } from "vue";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import DropdownMenu from "./ui/dropdown-menu/DropdownMenu.vue";
+import { useRouter } from "vue-router";
 const isNavOpen = ref(false);
 const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
+
+const router = useRouter();
 
 //@ts-ignore
 const user = await useSupabaseUser();
@@ -15,6 +18,7 @@ console.log(isAuthed);
 const logout = async () => {
   await client.auth.signOut();
   isAuthed.value = false;
+  router.push("/login");
 };
 </script>
 
@@ -119,6 +123,7 @@ const logout = async () => {
         >
         <DropdownMenuSeparator />
         <DropdownMenuItem
+          @click="logout"
           class="bg-red-800 flex justify-between -mt-1 rounded-none"
         >
           <span> Logout </span>
