@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import DropdownMenu from "./ui/dropdown-menu/DropdownMenu.vue";
 const isNavOpen = ref(false);
 const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
+
+//@ts-ignore
+const user = await useSupabaseUser();
 </script>
 
 <template>
@@ -14,7 +19,7 @@ const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
         Streakify
       </span>
     </NuxtLink>
-    <ul class="flex items-center gap-2 max-md:hidden">
+    <ul class="flex items-center gap-2 max-md:hidden" v-if="user.value">
       <li>
         <NuxtLink to="/register">
           <Button
@@ -38,7 +43,7 @@ const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
         </NuxtLink>
       </li>
     </ul>
-    <div class="lg:hidden">
+    <div class="lg:hidden" v-if="user.value">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button class="border-0 w-14" @click="toggleNav()">
@@ -83,5 +88,34 @@ const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Avatar v-if="!user.value">
+          <AvatarImage
+            src="https://github.com/radix-vue.png"
+            alt="@radix-vue"
+          />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        class="bg-background mr-6 min-w-0 w-52 border-amber-500 p-0 text-neutral-100 gap-0"
+      >
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem class="-mt-1 rounded-none">Profile</DropdownMenuItem>
+        <DropdownMenuItem class="rounded-none">Billing</DropdownMenuItem>
+        <DropdownMenuItem class="rounded-none">Team</DropdownMenuItem>
+        <DropdownMenuItem class="-mb-1 rounded-none"
+          >Subscription</DropdownMenuItem
+        >
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          class="bg-red-800 flex justify-between -mt-1 rounded-none"
+        >
+          <span> Logout </span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   </nav>
 </template>
