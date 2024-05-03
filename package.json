@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nuxtjs/supabase": "^1.2.1",
+    "@prisma/client": "5.13.0",
     "@vueuse/core": "^10.9.0",
     "ajv": "^7",
     "class-variance-authority": "^0.7.0",
@@ -27,6 +28,7 @@
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/tailwindcss": "^6.12.0",
     "nuxt-icon": "^0.6.10",
+    "prisma": "^5.13.0",
     "shadcn-nuxt": "^0.10.2",
     "typescript": "^5.4.5",
     "vue-tsc": "^1"
