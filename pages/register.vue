@@ -26,6 +26,18 @@ async function signUp() {
       password: password.value,
     });
 
+    if (data) {
+      //@ts-ignore
+      const res = await $fetch("/api/user", {
+        body: JSON.stringify({
+          username: username.value,
+          name: name.value,
+          email: email.value,
+        }),
+        method: "POST",
+      });
+    }
+
     if (error) throw error;
   } catch (error) {
     errMsg.value = (error as Error).message;

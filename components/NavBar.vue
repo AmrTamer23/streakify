@@ -8,6 +8,14 @@ const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
 
 //@ts-ignore
 const user = await useSupabaseUser();
+//@ts-ignore
+const client = useSupabaseClient();
+const isAuthed = ref(user?.value?.role === "authenticated" ? true : false);
+console.log(isAuthed);
+const logout = async () => {
+  await client.auth.signOut();
+  isAuthed.value = false;
+};
 </script>
 
 <template>
@@ -19,7 +27,7 @@ const user = await useSupabaseUser();
         Streakify
       </span>
     </NuxtLink>
-    <ul class="flex items-center gap-2 max-md:hidden" v-if="!user?.value">
+    <ul class="flex items-center gap-2 max-md:hidden" v-if="!isAuthed">
       <li>
         <NuxtLink to="/register">
           <Button
@@ -43,7 +51,7 @@ const user = await useSupabaseUser();
         </NuxtLink>
       </li>
     </ul>
-    <div class="lg:hidden" v-if="!user?.value">
+    <div class="lg:hidden" v-if="!isAuthed">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button class="border-0 w-14" @click="toggleNav()">
@@ -88,7 +96,7 @@ const user = await useSupabaseUser();
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-    <DropdownMenu v-if="user?.value">
+    <DropdownMenu v-if="isAuthed">
       <DropdownMenuTrigger>
         <Avatar>
           <AvatarImage
