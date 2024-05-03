@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+//@ts-ignore
+definePageMeta({
+  middleware: ["auth"],
+});
+</script>
 
 <template>
   <main class="*:mx-auto">
