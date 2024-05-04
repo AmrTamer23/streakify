@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button/index";
 import { Separator } from "@/components/ui/separator/index";
 import { useRouter, useState } from "nuxt/app";
 import { toast, Toaster } from "~/components/ui/toast";
+import { useUser } from "~/composables/useUser";
 const email = useState<string>("email");
 const password = useState<string>("password");
 const errMsg = useState<string>("errMsg");
@@ -23,6 +24,7 @@ async function signIn() {
       email: email.value,
       password: password.value,
     });
+    await useUser(data.user.id);
     if (!error) router.push("/dashboard");
   } catch (error) {
     errMsg.value = (error as Error).message;
