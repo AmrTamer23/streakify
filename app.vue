@@ -4,11 +4,10 @@ import NavBar from "@/components/NavBar.vue";
 import Toaster from "@/components/ui/toast/Toaster.vue";
 import "./assets/app.css";
 
-// useHead({
-//   titleTemplate: (titleChunk) => {
-//     return titleChunk ? `${titleChunk} - Streakify` : "Streakify";
-//   },
-// });
+//@ts-ignore
+definePageMeta({
+  title: "Streakify",
+});
 </script>
 
 <template>

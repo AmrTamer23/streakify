@@ -26,7 +26,7 @@ const logout = async () => {
   <nav class="flex justify-between items-center">
     <NuxtLink to="/">
       <span
-        class="font-semibold font-pt-mono text-3xl text-[#FFC278] pointer-events-none select-none"
+        class="font-semibold font-pt-mono text-4xl text-[#FFC278] pointer-events-none select-none"
       >
         Streakify
       </span>
@@ -101,8 +101,8 @@ const logout = async () => {
       </DropdownMenu>
     </div>
     <DropdownMenu v-if="isAuthed">
-      <DropdownMenuTrigger>
-        <Avatar>
+      <DropdownMenuTrigger class="flex">
+        <Avatar class="h-12 w-12 border-[#FFC278] border-2">
           <AvatarImage
             src="https://github.com/radix-vue.png"
             alt="@radix-vue"
