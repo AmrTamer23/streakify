@@ -12,7 +12,7 @@ const { data, pending, error, refresh } = await useAsyncData("userData", () =>
 
 <template>
   <div class="text-xl text-neutral-400 py-4">
-    Hello, {{ (data as unknown as User)?.name ?? "REAL." }}
+    Hello, {{ (data as unknown as User)?.name ?? "REAL....." }}
   </div>
   <main class="grid grid-cols-4 grid-rows-4"></main>
 </template>
