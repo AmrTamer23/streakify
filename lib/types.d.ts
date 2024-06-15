@@ -11,5 +11,6 @@ type Habit = {
   title: string;
   icon: string;
   currStreak: number;
+  longestStreak: number;
   activity: String[];
 };

@@ -11,8 +11,29 @@ const { data, pending, error, refresh } = await useAsyncData("userData", () =>
 </script>
 
 <template>
-  <div class="text-xl text-neutral-400 py-4">
+  <div class="text-xl text-neutral-400 pt-8 pb-4">
     Hello, {{ (data as unknown as User)?.name ?? "REAL....." }}
   </div>
-  <main class="grid grid-cols-4 grid-rows-4"></main>
+  <main class="grid lg:grid-cols-4 lg:grid-rows-4 gap-y-4">
+    <HabitCard
+      :habit="{
+        id: 0,
+        title: 'Read a book',
+        icon: '📚',
+        currStreak: 10,
+        activity: [],
+        longestStreak: 10,
+      }"
+    />
+    <HabitCard
+      :habit="{
+        id: 0,
+        title: 'Play the guitar',
+        icon: '🎸',
+        currStreak: 8,
+        activity: [],
+        longestStreak: 12,
+      }"
+    />
+  </main>
 </template>
