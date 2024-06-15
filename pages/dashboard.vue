@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useAsyncData } from "nuxt/app";
-import HabitCard from "~/components/HabitCard.vue";
 import AddNewHabit from "~/components/AddNewHabit.vue";
-
+import Habit from "~/components/Habit.vue";
 //@ts-ignore
 const supabase = await useSupabaseUser();
 
@@ -21,25 +20,6 @@ const { data, pending, error, refresh } = await useAsyncData("userData", () =>
     </div>
   </div>
   <main class="grid lg:grid-cols-4 lg:grid-rows-4 gap-y-4 lg:gap-x-4">
-    <HabitCard
-      :habit="{
-        id: 0,
-        title: 'Read a book',
-        icon: '📚',
-        currStreak: 10,
-        activity: [],
-        longestStreak: 10,
-      }"
-    />
-    <HabitCard
-      :habit="{
-        id: 0,
-        title: 'Play the guitar',
-        icon: '🎸',
-        currStreak: 8,
-        activity: [],
-        longestStreak: 12,
-      }"
-    />
+    <Habit />
   </main>
 </template>

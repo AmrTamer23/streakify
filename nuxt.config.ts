@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "shadcn-nuxt",
     "nuxt-icon",
     "@nuxtjs/supabase",
+    "@vueuse/nuxt",
   ],
   typescript: {
     strict: true,
