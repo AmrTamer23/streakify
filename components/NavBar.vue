@@ -26,7 +26,7 @@ const logout = async () => {
   <nav class="flex justify-between items-center">
     <NuxtLink to="/">
       <span
-        class="font-semibold font-pt-mono text-4xl text-[#FFC278] pointer-events-none select-none"
+        class="font-semibold font-pt-mono text-4xl text-brand pointer-events-none select-none"
       >
         Streakify
       </span>

@@ -16,7 +16,9 @@ defineProps({
 </script>
 
 <template>
-  <Card class="bg-zinc-950 text-zinc-200">
+  <Card
+    class="bg-zinc-950 text-zinc-200 hover:border-brand cursor-pointer hover:bg-zinc-900 transition-all ease-in-out duration-200"
+  >
     <CardHeader>
       <CardTitle class="flex items-center justify-between w-full">
         <div class="flex gap-2 flex-col">
