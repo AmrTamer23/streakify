@@ -14,7 +14,7 @@ const { data, pending, error, refresh } = await useAsyncData("userData", () =>
   <div class="text-xl text-neutral-400 pt-8 pb-4">
     Hello, {{ (data as unknown as User)?.name ?? "REAL....." }}
   </div>
-  <main class="grid lg:grid-cols-4 lg:grid-rows-4 gap-y-4">
+  <main class="grid lg:grid-cols-4 lg:grid-rows-4 gap-y-4 lg:gap-x-4">
     <HabitCard
       :habit="{
         id: 0,

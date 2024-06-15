@@ -51,6 +51,7 @@ defineProps({
           role="img"
           aria-hidden="true"
           v-for="(_, index) in habit.currStreak"
+          :key="index"
         ></span>
       </div>
     </CardContent>
