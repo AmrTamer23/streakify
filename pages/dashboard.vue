@@ -20,6 +20,15 @@ const { data, pending, error, refresh } = await useAsyncData("userData", () =>
     </div>
   </div>
   <main class="grid lg:grid-cols-4 lg:grid-rows-4 gap-y-4 lg:gap-x-4">
-    <Habit />
+    <Habit
+      :habit="{
+        title: 'Read a book',
+        icon: '📚',
+        currStreak: 5,
+        longestStreak: 10,
+        activity: [],
+        id: 0,
+      }"
+    />
   </main>
 </template>

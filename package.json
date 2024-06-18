@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@nuxtjs/supabase": "^1.2.1",
-    "@prisma/client": "5.13.0",
+    "@prisma/client": "^5.15.1",
+    "@unovis/ts": "^1.4.1",
+    "@unovis/vue": "^1.4.1",
     "@vueuse/core": "^10.11.0",
     "ajv": "^7",
     "class-variance-authority": "^0.7.0",
@@ -32,8 +34,8 @@
     "@nuxtjs/tailwindcss": "^6.12.0",
     "@vueuse/nuxt": "^10.11.0",
     "nuxt-icon": "^0.6.10",
-    "prisma": "^5.13.0",
-    "shadcn-nuxt": "^0.10.2",
+    "prisma": "^5.15.1",
+    "shadcn-nuxt": "^0.10.4",
     "typescript": "^5.4.5",
     "vue-tsc": "^1"
   },

@@ -21,50 +21,87 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 // import { Label } from "~/components/ui/label";
-import { Input } from "~/components/ui/input";
+// import { Input } from "~/components/ui/input";
+
+import Separator from "./ui/separator/Separator.vue";
+import HabitActivityAreaGraph from "./HabitActivityAreaGraph.vue";
 
 // Reuse `form` section
 const [UseTemplate, GridForm] = createReusableTemplate();
 const isDesktop = useMediaQuery("(min-width: 768px)");
 
 const isOpen = ref(false);
+
+defineProps({
+  habit: {
+    type: Object as () => Habit,
+    required: true,
+  },
+});
 </script>
 
 <template>
   <UseTemplate>
-    <form class="grid items-start gap-4 px-4">
-      <div class="grid gap-2">
-        <label html-for="email">Email</label>
-        <Input id="email" type="email" default-value="shadcn@example.com" />
+    <section class="flex flex-col gap-2 px-4">
+      <div class="flex flex-col gap-1">
+        <div class="text-3xl">{{ habit.icon }}</div>
+        <div class="text-zinc-100 text-xl">{{ habit.title }}</div>
       </div>
-      <div class="grid gap-2">
-        <label html-for="username">Username</label>
-        <Input id="username" default-value="@shadcn" />
+      <div class="flex gap-2 flex-col">
+        <span> Current Streak </span>
+        <div class="flex gap-1 flex-wrap">
+          <span
+            className="icon-[noto--green-square]"
+            role="img"
+            aria-hidden="true"
+            v-for="(_, index) in habit.currStreak"
+            :key="index"
+          ></span>
+        </div>
       </div>
-      <Button type="submit"> Save changes </Button>
-    </form>
+      <Separator class="mt-2" />
+      <HabitActivityAreaGraph
+        :data="[
+          {
+            x: 1,
+            y: 2,
+          },
+          {
+            x: 2,
+            y: 3,
+          },
+          {
+            x: 0,
+            y: 2,
+          },
+        ]"
+      />
+      <Separator />
+      <div class="flex gap-2 items-center">
+        <span> Longest Streak: </span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-12 w-12"
+          viewBox="0 0 48 48"
+        >
+          <path
+            fill="none"
+            stroke="#ffffff"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m43.5 15.13l-1.733 8.534M4.5 32.87l11.768-11.768l10.63 10.63l15.016-15.016L43.5 15.13l-8.44 1.6"
+          />
+        </svg>
+        <span>{{ habit.longestStreak }} days</span>
+      </div>
+    </section>
   </UseTemplate>
 
   <Dialog v-if="isDesktop" v-model:open="isOpen">
     <DialogTrigger as-child>
-      <HabitCard
-        :habit="{
-          id: 0,
-          title: 'Read a book',
-          icon: '📚',
-          currStreak: 10,
-          activity: [],
-          longestStreak: 10,
-        }"
-      />
+      <HabitCard :habit="habit" />
     </DialogTrigger>
     <DialogContent class="sm:max-w-[425px]">
-      <DialogHeader>
-        <DialogTitle>Edit profile</DialogTitle>
-        <DialogDescription>
-          Make changes to your profile here. Click save when you're done.
-        </DialogDescription>
-      </DialogHeader>
       <GridForm />
     </DialogContent>
   </Dialog>
@@ -83,12 +120,6 @@ const isOpen = ref(false);
       />
     </DrawerTrigger>
     <DrawerContent>
-      <DrawerHeader class="text-left">
-        <DrawerTitle>Edit profile</DrawerTitle>
-        <DrawerDescription>
-          Make changes to your profile here. Click save when you're done.
-        </DrawerDescription>
-      </DrawerHeader>
       <GridForm />
       <DrawerFooter class="pt-2">
         <DrawerClose as-child>
