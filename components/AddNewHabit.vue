@@ -8,8 +8,12 @@ import {
   SheetTrigger,
 } from "~/components/ui/sheet";
 import { ref } from "vue";
+import { Vue3IconPicker } from "vue3-icon-picker";
+import "vue3-icon-picker/dist/style.css";
 
 const newHabit = ref<Habit>();
+
+const icon = ref<string>();
 </script>
 
 <template>
@@ -33,12 +37,12 @@ const newHabit = ref<Habit>();
       </SheetHeader>
       <div class="grid gap-4 py-4">
         <div class="flex flex-col gap-2 items-start">
-          <Label for="title" class="text-right"> Title </Label>
-          <Input id="title" :value="newHabit?.title" class="col-span-3" />
+          <Label for="icon" class="text-right"> Icon </Label>
+          <Vue3IconPicker placeholder="Select icon" v-model="icon" />
         </div>
         <div class="flex flex-col gap-2 items-start">
-          <Label for="icon" class="text-right"> Icon </Label>
-          <Input id="icon" :value="newHabit?.icon" class="col-span-3" />
+          <Label for="title" class="text-right"> Title </Label>
+          <Input id="title" :value="newHabit?.title" class="col-span-3" />
         </div>
       </div>
       <SheetFooter>

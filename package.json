@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@haxtheweb/simple-icon-picker": "9.0.0-alpha.0",
     "@nuxtjs/supabase": "^1.2.1",
     "@prisma/client": "^5.15.1",
     "@unovis/ts": "^1.4.1",
@@ -23,9 +24,12 @@
     "radix-vue": "^1.7.3",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "universal-icon-picker": "^1.1.7",
+    "vanilla-icon-picker": "^1.3.0",
     "vaul-vue": "^0.1.2",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-icon-picker": "^0.1.3"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.219",
