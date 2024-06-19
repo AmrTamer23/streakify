@@ -94,6 +94,16 @@ defineProps({
         </svg>
         <span>{{ habit.longestStreak }} days</span>
       </div>
+      <Button
+        class="font-semibold bg-amber-500 text-neutral-900 flex items-center justify-center gap-2"
+      >
+        <span
+          className="icon-[ic--round-done-outline] h-5 w-5"
+          role="img"
+          aria-hidden="true"
+        />
+        <span> Mark as done today </span>
+      </Button>
     </section>
   </UseTemplate>
 
