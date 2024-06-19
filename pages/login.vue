@@ -20,11 +20,17 @@ const client = useSupabaseClient();
 
 async function signIn() {
   try {
-    const { data, error } = await client.auth.signInWithPassword({
-      email: email.value,
-      password: password.value,
-    });
+    const { data, error } = await client.auth
+      .signInWithPassword({
+        email: email.value,
+        password: password.value,
+      })
+      .then((res: any) => {
+        //Handle user need to verify email
+      });
+
     await useUser(data.user.id);
+
     if (!error) router.push("/dashboard");
   } catch (error) {
     errMsg.value = (error as Error).message;
@@ -45,7 +51,7 @@ async function signIn() {
         Welcome Back<span class="text-amber-500">!</span>
       </h1>
     </div>
-    <form @submit.prevent="signIn" class="flex flex-col gap-6">
+    <form @submit.prevent="signIn()" class="flex flex-col gap-6">
       <fieldset>
         <label for="email" class="sr-only"> Email </label>
         <Input
