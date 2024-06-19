@@ -44,7 +44,7 @@ defineProps({
   <UseTemplate>
     <section class="flex flex-col gap-2 px-4">
       <div class="flex flex-col gap-1">
-        <div class="text-3xl">{{ habit.icon }}</div>
+        <div class="[&_svg]:!h-10 [&_svg]:!w-10" v-html="habit.icon"></div>
         <div class="text-zinc-100 text-xl">{{ habit.title }}</div>
       </div>
       <div class="flex gap-2 flex-col">
@@ -118,16 +118,7 @@ defineProps({
 
   <Drawer v-else v-model:open="isOpen">
     <DrawerTrigger as-child>
-      <HabitCard
-        :habit="{
-          id: 0,
-          title: 'Read a book',
-          icon: '📚',
-          currStreak: 10,
-          activity: [],
-          longestStreak: 10,
-        }"
-      />
+      <HabitCard :habit="habit" />
     </DrawerTrigger>
     <DrawerContent>
       <GridForm />

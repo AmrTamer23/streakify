@@ -10,10 +10,27 @@ import {
 import { ref } from "vue";
 import { Vue3IconPicker } from "vue3-icon-picker";
 import "vue3-icon-picker/dist/style.css";
-
-const newHabit = ref<Habit>();
+import { useAsyncData } from "nuxt/app";
+//@ts-ignore
+const supabase = await useSupabaseUser();
 
 const icon = ref<string>();
+
+const title = ref<string>();
+
+async function addHabit() {
+  const { data, pending, error, refresh } = await useAsyncData("userData", () =>
+    $fetch(`/api/habit`, {
+      method: "POST",
+      body: {
+        icon: icon.value,
+        title: title.value,
+        //@ts-ignore
+        userId: supabase.value.id,
+      },
+    })
+  );
+}
 </script>
 
 <template>
@@ -42,9 +59,17 @@ const icon = ref<string>();
         </div>
         <div class="flex flex-col gap-2 items-start">
           <Label for="title" class="text-right"> Title </Label>
-          <Input id="title" :value="newHabit?.title" class="col-span-3" />
+          <Input id="title" v-model="title" class="col-span-3" />
         </div>
       </div>
+      <Button @click="addHabit">
+        <span
+          className="icon-[ph--plus-bold]"
+          role="img"
+          aria-hidden="true"
+        ></span>
+        <span> Add habit </span>
+      </Button>
       <SheetFooter>
         <SheetClose as-child>
           <Button type="submit"> Save changes </Button>

@@ -22,7 +22,7 @@ defineProps({
     <CardHeader>
       <CardTitle class="flex items-center justify-between w-full">
         <div class="flex gap-2 flex-col">
-          <span>{{ habit.icon }}</span>
+          <span v-html="habit.icon" class="[&_svg]:h-10 [&_svg]:w-10"></span>
           <div class="text-lg text-zinc-100">{{ habit.title }}</div>
         </div>
         <div class="flex gap-2 items-center">
