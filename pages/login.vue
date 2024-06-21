@@ -26,7 +26,8 @@ async function signIn() {
         password: password.value,
       })
       .then((res: any) => {
-        //Handle user need to verify email
+        //TODO:Handle user need to verify email
+        //TODO:Handle user enter email and the id stuck in the url
       });
 
     await useUser(data.user.id);
