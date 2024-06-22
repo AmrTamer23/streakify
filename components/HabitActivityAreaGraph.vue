@@ -10,6 +10,6 @@ const y = (d: DataRecord) => d.y;
 
 <template>
   <VisXYContainer :data="data">
-    <VisArea :minHeight1Px="true" :x="x" :y="y" />
+    <VisArea :minHeight1Px="false" :x="x" :y="y" color="#FFC278" />
   </VisXYContainer>
 </template>

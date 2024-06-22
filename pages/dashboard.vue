@@ -2,14 +2,20 @@
 import { useAsyncData } from "nuxt/app";
 import AddNewHabit from "~/components/AddNewHabit.vue";
 import Habit from "~/components/Habit.vue";
-import { useHabits } from "~/composables/useHabits";
 //@ts-ignore
 const supabase = await useSupabaseUser();
 
 const { data, pending, error, refresh } = await useAsyncData("userData", () =>
   $fetch(`/api/user?${supabase.value.id}`)
 );
-const habits = await useHabits(supabase.value.id);
+const {
+  data: habitsData,
+  pending: habitsPending,
+  error: habitsError,
+  refresh: habitsRefresh,
+} = await useAsyncData("habitsData", () =>
+  $fetch(`/api/habits?${supabase.value.id}`)
+);
 </script>
 
 <template>
@@ -22,6 +28,10 @@ const habits = await useHabits(supabase.value.id);
     </div>
   </div>
   <main class="grid lg:grid-cols-4 lg:grid-rows-4 gap-y-4 lg:gap-x-4">
-    <Habit v-for="habit in habits" :key="habit.id" :habit="habit" />
+    <Habit
+      v-for="habit in habitsData as Habit[]"
+      :key="habit.id"
+      :habit="habit"
+    />
   </main>
 </template>
