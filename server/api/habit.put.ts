@@ -2,19 +2,6 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import { daysBetweenDates } from "~/lib/utils";
 const prisma = new PrismaClient();
 
-function diffDates(date1: string, date2: number) {
-  // Convert ISO string to Date object
-  let isoDate = new Date(date1);
-
-  // Calculate the difference in milliseconds
-  let differenceMs = date2 - isoDate.getTime();
-
-  // Convert milliseconds to days (optional)
-  let differenceDays = differenceMs / (1000 * 60 * 60 * 24);
-
-  return differenceDays;
-}
-
 //@ts-ignore
 export default defineEventHandler(async (e) => {
   // @ts-ignore
@@ -44,7 +31,7 @@ export const updateHabit = async (
           data: {
             date: date.toString(),
             habitId,
-            x: 0,
+            x: 1,
             y: isDone ? 1 : 0,
           },
         });
