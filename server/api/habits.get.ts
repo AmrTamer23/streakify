@@ -17,7 +17,7 @@ export default defineEventHandler(async (e) => {
 const getHabits = async (userId: string) => {
   return await prisma.habit.findMany({
     where: {
-      userId,
+      userId: userId,
     },
   });
 };

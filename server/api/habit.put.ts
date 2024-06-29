@@ -1,4 +1,5 @@
 import { Prisma, PrismaClient } from "@prisma/client";
+import { daysBetweenDates } from "~/lib/utils";
 const prisma = new PrismaClient();
 
 function diffDates(date1: string, date2: number) {
@@ -29,39 +30,41 @@ export const updateHabit = async (
   habitId: number,
   date: number
 ) => {
-  return await prisma.habit
-    .findUnique({
-      where: {
-        id: habitId,
+  return await prisma.activity
+    .findMany({
+      orderBy: {
+        date: "desc",
       },
+      take: 1,
     })
-    .then(async (habit) => {
-      console.log(habit);
-      if (
-        habit?.activity &&
-        typeof habit?.activity === "object" &&
-        Array.isArray(habit?.activity)
-      ) {
-        let activityObject = habit?.activity as Prisma.JsonArray;
-
-        activityObject.push({
-          x:
-            activityObject.length > 0
-              ? diffDates(
-                  (activityObject[activityObject.length - 1] as Activity).date,
-                  date
-                )
-              : 1,
-          y: isDone ? 1 : 0,
-          date: new Date(date).toISOString(),
-        });
-
-        await prisma.habit.update({
-          where: {
-            id: habitId,
-          },
+    .then(async (activity) => {
+      console.log(activity);
+      if (activity.length === 0) {
+        await prisma.activity.create({
           data: {
-            activity: activityObject,
+            date: date.toString(),
+            habitId,
+            x: 0,
+            y: isDone ? 1 : 0,
+          },
+        });
+        return;
+      }
+      let lastActivity = activity[0];
+      let lastActivityDate = lastActivity?.date;
+      console.log(Number(lastActivityDate));
+      let daysSinceLastActivity = daysBetweenDates(
+        Number(lastActivityDate),
+        date
+      );
+      console.log(daysSinceLastActivity);
+      if (daysSinceLastActivity > 1) {
+        return await prisma.activity.create({
+          data: {
+            date: date.toString(),
+            habitId,
+            x: daysSinceLastActivity,
+            y: isDone ? 1 : 0,
           },
         });
       }

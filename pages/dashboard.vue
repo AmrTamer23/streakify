@@ -5,17 +5,17 @@ import Habit from "~/components/Habit.vue";
 //@ts-ignore
 const supabase = await useSupabaseUser();
 
-const { data, pending, error, refresh } = await useAsyncData("userData", () =>
+const { data, error, refresh } = await useAsyncData("userData", () =>
   $fetch(`/api/user?${supabase.value.id}`)
 );
 const {
   data: habitsData,
-  pending: habitsPending,
   error: habitsError,
   refresh: habitsRefresh,
-} = await useAsyncData("habitsData", () =>
-  $fetch(`/api/habits?${supabase.value.id}`)
-);
+} = await useAsyncData("habitsData", () => {
+  console.log(supabase.value.id);
+  return $fetch(`/api/habits?${supabase.value.id}`);
+});
 </script>
 
 <template>
