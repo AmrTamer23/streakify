@@ -71,7 +71,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border font-giest;
   }
   body {
     margin: 0;

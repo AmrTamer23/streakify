@@ -10,6 +10,9 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@fontsource/alegreya-sans": "^5.0.13",
+    "@fontsource/geist-sans": "^5.0.3",
+    "@fontsource/ibm-plex-sans": "^5.0.20",
     "@haxtheweb/simple-icon-picker": "9.0.0-alpha.0",
     "@nuxtjs/supabase": "^1.2.1",
     "@prisma/client": "^5.15.1",

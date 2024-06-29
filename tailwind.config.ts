@@ -86,6 +86,7 @@ module.exports = {
       fontFamily: {
         "pt-mono": ["PT Mono", "monospace"],
         young: ["Young Serif", "serif"],
+        giest: ["Geist Sans", "sans-serif"],
       },
     },
   },

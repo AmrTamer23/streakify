@@ -32,7 +32,7 @@ defineProps({
 
 <template>
   <UseTemplate>
-    <section class="flex flex-col gap-2 px-4">
+    <section class="flex flex-col gap-2 p-4">
       <div class="flex flex-col gap-1">
         <div class="[&_svg]:!h-10 [&_svg]:!w-10" v-html="habit.icon"></div>
         <div class="text-zinc-100 text-xl">{{ habit.title }}</div>
@@ -41,7 +41,7 @@ defineProps({
       <Separator class="mt-2" />
       <HabitActivityAreaGraph
         :activities="habit.activities"
-        class="overflow-x-auto"
+        class="overflow-x-auto max-w-full"
       />
       <Separator />
       <div class="flex gap-2 items-center">
@@ -78,7 +78,7 @@ defineProps({
     <DialogTrigger as-child>
       <HabitCard :habit="habit" />
     </DialogTrigger>
-    <DialogContent class="max-w-4xl">
+    <DialogContent class="max-w-fit p-4">
       <GridForm />
     </DialogContent>
   </Dialog>

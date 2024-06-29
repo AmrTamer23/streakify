@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-// import { useHead } from "";
+import "@fontsource/geist-sans";
 import NavBar from "@/components/NavBar.vue";
 import Toaster from "@/components/ui/toast/Toaster.vue";
 import "./assets/app.css";
