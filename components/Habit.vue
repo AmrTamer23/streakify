@@ -2,29 +2,19 @@
 import { ref } from "vue";
 import { createReusableTemplate, useMediaQuery } from "@vueuse/core";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 // import { Label } from "~/components/ui/label";
 // import { Input } from "~/components/ui/input";
 
 import Separator from "./ui/separator/Separator.vue";
-import HabitActivityAreaGraph from "./HabitActivityAreaGraph.vue";
+import HabitActivityAreaGraph from "./HabitActivityGraph.vue";
 
 // Reuse `form` section
 const [UseTemplate, GridForm] = createReusableTemplate();
@@ -47,50 +37,11 @@ defineProps({
         <div class="[&_svg]:!h-10 [&_svg]:!w-10" v-html="habit.icon"></div>
         <div class="text-zinc-100 text-xl">{{ habit.title }}</div>
       </div>
-      <div class="flex gap-2 flex-col">
-        <span> Current Streak </span>
-        <div class="flex gap-1 flex-wrap">
-          <span
-            className="icon-[noto--green-square]"
-            role="img"
-            aria-hidden="true"
-            v-for="(_, index) in habit.currStreak"
-            :key="index"
-          ></span>
-        </div>
-      </div>
+
       <Separator class="mt-2" />
       <HabitActivityAreaGraph
-        :data="[
-          {
-            x: 1,
-            y: 0.5,
-          },
-          {
-            x: 2,
-            y: 0,
-          },
-          {
-            x: 3,
-            y: 0.5,
-          },
-          {
-            x: 4,
-            y: 0,
-          },
-          {
-            x: 5,
-            y: 0.5,
-          },
-          {
-            x: 6,
-            y: 0,
-          },
-          {
-            x: 7,
-            y: 0.5,
-          },
-        ]"
+        :activities="habit.activities"
+        class="overflow-x-auto"
       />
       <Separator />
       <div class="flex gap-2 items-center">
@@ -127,7 +78,7 @@ defineProps({
     <DialogTrigger as-child>
       <HabitCard :habit="habit" />
     </DialogTrigger>
-    <DialogContent class="sm:max-w-[425px]">
+    <DialogContent class="max-w-4xl">
       <GridForm />
     </DialogContent>
   </Dialog>

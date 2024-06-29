@@ -19,5 +19,8 @@ const getHabits = async (userId: string) => {
     where: {
       userId: userId,
     },
+    include: {
+      activities: true,
+    },
   });
 };

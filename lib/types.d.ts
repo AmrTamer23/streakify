@@ -12,10 +12,12 @@ type Habit = {
   icon: string;
   currStreak: number;
   longestStreak: number;
-  activity: Activity[];
+  activities: Activity[];
 };
 
 type Activity = {
+  id: number;
+  habitId: number;
   x: number;
   y: number;
   date: string;
