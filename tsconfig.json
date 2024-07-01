@@ -25,6 +25,6 @@
     "lib": ["es2022", "dom", "dom.iterable"]
   },
   // Include the necessary files for your project
-  "include": ["**/*.ts", "**/*.vue"],
+  "include": ["**/*.ts", "**/*.vue", "components/NavBar/NavBar.stories.tsx"],
   "exclude": ["node_modules"]
 }
