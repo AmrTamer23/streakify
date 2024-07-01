@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { daysBetweenDates } from "~/lib/utils";
 const prisma = new PrismaClient();
 
@@ -19,15 +19,17 @@ export const updateHabit = async (
 ) => {
   return await prisma.activity
     .findMany({
+      where: {
+        habitId,
+      },
       orderBy: {
-        date: "desc",
+        date: "asc",
       },
       take: 1,
     })
     .then(async (activity) => {
-      console.log(activity);
       if (activity.length === 0) {
-        await prisma.activity.create({
+        return await prisma.activity.create({
           data: {
             date: date.toString(),
             habitId,
@@ -35,7 +37,6 @@ export const updateHabit = async (
             y: isDone ? 1 : 0,
           },
         });
-        return;
       }
       let lastActivity = activity[0];
       let lastActivityDate = lastActivity?.date;
@@ -44,7 +45,6 @@ export const updateHabit = async (
         Number(lastActivityDate),
         date
       );
-      console.log(daysSinceLastActivity);
       if (daysSinceLastActivity > 1) {
         return await prisma.activity.create({
           data: {
@@ -54,6 +54,8 @@ export const updateHabit = async (
             y: isDone ? 1 : 0,
           },
         });
+      } else {
+        return "Already updated today!";
       }
     });
 };

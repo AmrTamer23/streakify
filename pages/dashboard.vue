@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAsyncData } from "nuxt/app";
-import AddNewHabit from "~/components/AddNewHabit.vue";
-import Habit from "~/components/Habit.vue";
+import AddNewHabit from "~/components/AddNewHabit/AddNewHabit.vue";
+import Habit from "~/components/Habit/Habit.vue";
 //@ts-ignore
 const supabase = await useSupabaseUser();
 
@@ -32,6 +32,7 @@ const {
       v-for="habit in habitsData as Habit[]"
       :key="habit.id"
       :habit="habit"
+      @click="habitsRefresh()"
     />
   </main>
 </template>

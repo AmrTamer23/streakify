@@ -11,7 +11,7 @@
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "isolatedModules": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "allowSyntheticDefaultImports": true,
 
     // Enable strict type checking so you can catch bugs early

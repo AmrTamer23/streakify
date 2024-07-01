@@ -10,11 +10,9 @@ import {
   DrawerFooter,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-// import { Label } from "~/components/ui/label";
-// import { Input } from "~/components/ui/input";
 
-import Separator from "./ui/separator/Separator.vue";
-import HabitActivityAreaGraph from "./HabitActivityGraph.vue";
+import Separator from "../ui/separator/Separator.vue";
+import HabitActivityAreaGraph from "../HabitActivityGraph/HabitActivityGraph.vue";
 
 // Reuse `form` section
 const [UseTemplate, GridForm] = createReusableTemplate();
@@ -34,7 +32,7 @@ defineProps({
   <UseTemplate>
     <section class="flex flex-col gap-2 p-4">
       <div class="flex flex-col gap-1">
-        <div class="[&_svg]:!h-10 [&_svg]:!w-10" v-html="habit.icon"></div>
+        <div class="[&_svg]:!h-20 [&_svg]:!w-20" v-html="habit.icon"></div>
         <div class="text-zinc-100 text-xl">{{ habit.title }}</div>
       </div>
 

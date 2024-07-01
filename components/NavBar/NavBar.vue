@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import DropdownMenu from "./ui/dropdown-menu/DropdownMenu.vue";
+import DropdownMenu from "../ui/dropdown-menu/DropdownMenu.vue";
 import { useRouter } from "vue-router";
 const isNavOpen = ref(false);
 const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
