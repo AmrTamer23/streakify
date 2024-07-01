@@ -31,43 +31,49 @@ defineProps({
 <template>
   <UseTemplate>
     <section class="flex flex-col gap-2 p-4">
-      <div class="flex flex-col gap-1">
-        <div class="[&_svg]:!h-20 [&_svg]:!w-20" v-html="habit.icon"></div>
-        <div class="text-zinc-100 text-xl">{{ habit.title }}</div>
+      <div
+        class="flex lg:items-end justify-between mt-2 flex-col lg:flex-row gap-2 lg:gap-0"
+      >
+        <div class="flex flex-col gap-1">
+          <div class="[&_svg]:!h-20 [&_svg]:!w-20" v-html="habit.icon"></div>
+          <div class="text-zinc-100 text-xl">{{ habit.title }}</div>
+          <div class="flex items-center gap-1 mt-2">
+            <span
+              class="icon-[hugeicons--time-quarter-pass] h-7 w-7 text-amber-400/50"
+              role="img"
+              aria-hidden="true"
+            />
+            <span> Started from: </span>
+            <span>{{ habit.longestStreak }} days</span>
+          </div>
+        </div>
+        <div class="flex gap-2 flex-col">
+          <div class="flex gap-1 items-center">
+            <span
+              class="icon-[ant-design--stock-outlined] h-8 w-8 text-amber-400"
+              role="img"
+              aria-hidden="true"
+            />
+            <span> Longest Streak: </span>
+            <span>{{ habit.longestStreak }} days</span>
+          </div>
+        </div>
       </div>
-
       <Separator class="mt-2" />
       <HabitActivityAreaGraph
         :activities="habit.activities"
         class="overflow-x-auto max-w-full"
       />
       <Separator />
-      <div class="flex gap-2 items-center">
-        <span> Longest Streak: </span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-12 w-12"
-          viewBox="0 0 48 48"
-        >
-          <path
-            fill="none"
-            stroke="#ffffff"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="m43.5 15.13l-1.733 8.534M4.5 32.87l11.768-11.768l10.63 10.63l15.016-15.016L43.5 15.13l-8.44 1.6"
-          />
-        </svg>
-        <span>{{ habit.longestStreak }} days</span>
-      </div>
       <Button
-        class="font-semibold bg-amber-500 text-neutral-900 flex items-center justify-center gap-2"
+        class="font-semibold bg-amber-500 text-neutral-900 flex items-center justify-center gap-2 lg:w-1/4 lg:mx-auto text-lg mt-4"
       >
         <span
-          className="icon-[ic--round-done-outline] h-5 w-5"
+          className="icon-[ic--round-done-outline] h-7 w-7"
           role="img"
           aria-hidden="true"
         />
-        <span> Mark as done today </span>
+        <span> Done for Today </span>
       </Button>
     </section>
   </UseTemplate>
