@@ -10,6 +10,14 @@ import {
   DrawerFooter,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import Separator from "../ui/separator/Separator.vue";
 import HabitActivityAreaGraph from "../HabitActivityGraph/HabitActivityGraph.vue";
@@ -47,7 +55,25 @@ defineProps({
             <span>{{ habit.longestStreak }} days</span>
           </div>
         </div>
-        <div class="flex gap-2 flex-col">
+        <div class="flex gap-2 flex-col items-end">
+          <DropdownMenu>
+            <DropdownMenuTrigger class="w-fit">
+              <Button variant="ghost" class="px-1">
+                <span
+                  class="icon-[gg--more-vertical] h-6 w-6"
+                  role="img"
+                  aria-hidden="true"
+                />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent class="bg-zinc-900">
+              <DropdownMenuItem
+                class="bg-red-700 text-zinc-200 hover:!bg-red-950"
+              >
+                <DropdownMenuLabel> Delete </DropdownMenuLabel>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <div class="flex gap-1 items-center">
             <span
               class="icon-[ant-design--stock-outlined] h-8 w-8 text-amber-400"
@@ -65,16 +91,18 @@ defineProps({
         class="overflow-x-auto max-w-full"
       />
       <Separator />
-      <Button
-        class="font-semibold bg-amber-500 text-neutral-900 flex items-center justify-center gap-2 lg:w-1/4 lg:mx-auto text-lg mt-4"
-      >
-        <span
-          className="icon-[ic--round-done-outline] h-7 w-7"
-          role="img"
-          aria-hidden="true"
-        />
-        <span> Done for Today </span>
-      </Button>
+      <div class="flex items-center justify-center">
+        <Button
+          class="font-semibold bg-amber-500 text-neutral-900 flex items-center justify-center gap-2 lg:w-1/2 lg:mx-auto text-lg mt-4"
+        >
+          <span
+            className="icon-[ic--round-done-outline] h-7 w-7"
+            role="img"
+            aria-hidden="true"
+          />
+          <span> Done for Today </span>
+        </Button>
+      </div>
     </section>
   </UseTemplate>
 
