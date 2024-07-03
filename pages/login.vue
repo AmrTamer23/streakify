@@ -25,12 +25,16 @@ async function signIn() {
         email: email.value,
         password: password.value,
       })
-      .then((res: any) => {
+      .then((res) => {
         //TODO:Handle user need to verify email
         //TODO:Handle user enter email and the id stuck in the url
+        return {
+          data: res.data,
+          error: res.error,
+        };
       });
 
-    await useUser(data.user.id);
+    await useUser(data.user?.id);
 
     if (!error) router.push("/dashboard");
   } catch (error) {

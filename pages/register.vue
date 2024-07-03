@@ -31,7 +31,7 @@ async function signUp() {
       //@ts-ignore
       const res = await $fetch("/api/user", {
         body: JSON.stringify({
-          id: data.user.id,
+          id: data?.user?.id,
           username: username.value,
           name: name.value,
           email: email.value,

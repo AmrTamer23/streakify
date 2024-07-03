@@ -12,9 +12,9 @@ import { Vue3IconPicker } from "vue3-icon-picker";
 import "vue3-icon-picker/dist/style.css";
 import { useAsyncData } from "nuxt/app";
 //@ts-ignore
-const supabase = await useSupabaseUser();
+const supabase = useSupabaseUser();
 
-const icon = ref<string>();
+const icon = ref<string | null>(null);
 
 const title = ref<string>();
 

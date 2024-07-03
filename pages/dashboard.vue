@@ -3,18 +3,17 @@ import { useAsyncData } from "nuxt/app";
 import AddNewHabit from "~/components/AddNewHabit/AddNewHabit.vue";
 import Habit from "~/components/Habit/Habit.vue";
 //@ts-ignore
-const supabase = await useSupabaseUser();
+const supabase = useSupabaseUser();
 
 const { data, error, refresh } = await useAsyncData("userData", () =>
-  $fetch(`/api/user?${supabase.value.id}`)
+  $fetch(`/api/user?${supabase.value?.id}`)
 );
 const {
   data: habitsData,
   error: habitsError,
   refresh: habitsRefresh,
 } = await useAsyncData("habitsData", () => {
-  console.log(supabase.value.id);
-  return $fetch(`/api/habits?${supabase.value.id}`);
+  return $fetch(`/api/habits?${supabase.value?.id}`);
 });
 </script>
 

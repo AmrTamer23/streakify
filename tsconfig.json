@@ -1,30 +1,4 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json",
-
-  "compilerOptions": {
-    // Base Options recommended for all projects
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "target": "es2022",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "moduleDetection": "force",
-    "isolatedModules": true,
-    "verbatimModuleSyntax": false,
-    "allowSyntheticDefaultImports": true,
-
-    // Enable strict type checking so you can catch bugs early
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    // Transpile our TypeScript code to JavaScript
-    "module": "ES2022",
-    "outDir": "dist",
-    // Include the DOM types
-    "lib": ["es2022", "dom", "dom.iterable"]
-  },
-  // Include the necessary files for your project
-  "include": ["**/*.ts", "**/*.vue", "components/NavBar/NavBar.stories.tsx"],
-  "exclude": ["node_modules"]
+  "extends": "./.nuxt/tsconfig.json"
 }
