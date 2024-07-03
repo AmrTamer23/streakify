@@ -55,7 +55,7 @@ async function signUp() {
 </script>
 
 <template>
-  <main class="*:mx-auto flex flex-col gap-4 *:max-w-lg">
+  <main class="*:mx-auto flex flex-col gap-4 *:max-w-lg mt-24">
     <div>
       <h1 class="text-4xl font-semibold">
         Welcome <span class="text-amber-500">!</span>
