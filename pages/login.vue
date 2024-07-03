@@ -15,8 +15,9 @@ const errMsg = useState<string>("errMsg");
 
 const router = useRouter();
 
-//@ts-ignore
 const client = useSupabaseClient();
+
+const { login } = useIsAuth();
 
 async function signIn() {
   try {
@@ -28,6 +29,7 @@ async function signIn() {
       .then((res) => {
         //TODO:Handle user need to verify email
         //TODO:Handle user enter email and the id stuck in the url
+        login();
         return {
           data: res.data,
           error: res.error,

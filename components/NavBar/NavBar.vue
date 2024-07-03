@@ -9,17 +9,10 @@ const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
 
 const router = useRouter();
 
-//@ts-ignore
-const user = await useSupabaseUser();
-//@ts-ignore
-const client = useSupabaseClient();
-const isAuthed = ref(user?.value?.role === "authenticated" ? true : false);
-console.log(isAuthed);
-const logout = async () => {
-  await client.auth.signOut();
-  isAuthed.value = false;
-  router.push("/login");
-};
+defineProps({
+  isAuthed: Boolean,
+  logout: Function,
+});
 </script>
 
 <template>
@@ -123,7 +116,7 @@ const logout = async () => {
         >
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          @click="logout"
+          @click="logout!"
           class="bg-red-800 flex justify-between -mt-1 rounded-none"
         >
           <span> Logout </span>
