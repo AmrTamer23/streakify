@@ -50,7 +50,7 @@ async function signIn() {
 </script>
 
 <template>
-  <main class="*:mx-auto flex flex-col gap-4 *:max-w-lg h-full justify-center">
+  <main class="*:mx-auto flex flex-col gap-4 *:max-w-lg">
     <div>
       <h1 class="text-4xl font-semibold">
         Welcome Back<span class="text-amber-500">!</span>

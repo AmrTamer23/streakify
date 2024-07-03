@@ -92,7 +92,7 @@ const logout = async () => {
             >
               <NuxtLink
                 class="text-lg text-white w-full group-active/signUpBtnMobile:text-black"
-                to="/signup"
+                to="/register"
                 >Sign Up</NuxtLink
               >
             </Button>
