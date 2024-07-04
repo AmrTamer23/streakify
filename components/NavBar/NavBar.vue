@@ -7,12 +7,8 @@ import { useRouter } from "vue-router";
 const isNavOpen = ref(false);
 const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
 
+const { signOut, user } = useAuth();
 const router = useRouter();
-
-defineProps({
-  isAuthed: Boolean,
-  logout: Function,
-});
 </script>
 
 <template>
@@ -24,7 +20,7 @@ defineProps({
         Streakify
       </span>
     </NuxtLink>
-    <ul class="flex items-center gap-2 max-md:hidden" v-if="!isAuthed">
+    <ul class="flex items-center gap-2 max-md:hidden" v-if="!user">
       <li>
         <NuxtLink to="/register">
           <Button
@@ -48,7 +44,7 @@ defineProps({
         </NuxtLink>
       </li>
     </ul>
-    <div class="lg:hidden" v-if="!isAuthed">
+    <div class="lg:hidden" v-if="!user">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button class="border-0 w-14" @click="toggleNav()">
@@ -93,7 +89,7 @@ defineProps({
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-    <DropdownMenu v-if="isAuthed">
+    <DropdownMenu v-if="user">
       <DropdownMenuTrigger class="flex">
         <Avatar class="h-12 w-12 border-[#FFC278] border-2">
           <AvatarImage
@@ -116,7 +112,7 @@ defineProps({
         >
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          @click="logout!"
+          @click="signOut().then(() => router.push('/login'))"
           class="bg-red-800 flex justify-between -mt-1 rounded-none"
         >
           <span> Logout </span>

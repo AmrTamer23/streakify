@@ -17,38 +17,7 @@ const router = useRouter();
 
 const client = useSupabaseClient();
 
-const { login } = useIsAuth();
-
-async function signIn() {
-  try {
-    const { data, error } = await client.auth
-      .signInWithPassword({
-        email: email.value,
-        password: password.value,
-      })
-      .then((res) => {
-        //TODO:Handle user need to verify email
-        //TODO:Handle user enter email and the id stuck in the url
-        login();
-        return {
-          data: res.data,
-          error: res.error,
-        };
-      });
-
-    await useUser(data.user?.id);
-
-    if (!error) router.push("/dashboard");
-  } catch (error) {
-    errMsg.value = (error as Error).message;
-    console.error(errMsg.value);
-    toast({
-      title: "Error",
-      description: errMsg.value,
-      variant: "destructive",
-    });
-  }
-}
+const { signIn } = useAuth();
 </script>
 
 <template>
@@ -58,7 +27,12 @@ async function signIn() {
         Welcome Back<span class="text-amber-500">!</span>
       </h1>
     </div>
-    <form @submit.prevent="signIn()" class="flex flex-col gap-6">
+    <form
+      @submit.prevent="
+        signIn(email, password).then(() => router.push('/dashboard'))
+      "
+      class="flex flex-col gap-6"
+    >
       <fieldset>
         <label for="email" class="sr-only"> Email </label>
         <Input

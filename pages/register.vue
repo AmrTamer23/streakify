@@ -28,8 +28,7 @@ async function signUp() {
     });
 
     if (data) {
-      //@ts-ignore
-      const res = await $fetch("/api/user", {
+      await $fetch("/api/user", {
         body: JSON.stringify({
           id: data?.user?.id,
           username: username.value,
@@ -39,6 +38,11 @@ async function signUp() {
         method: "POST",
       });
       router.push("/login");
+      toast({
+        title: "Success",
+        description: "Account created successfully",
+        variant: "default",
+      });
     }
 
     if (error) throw error;

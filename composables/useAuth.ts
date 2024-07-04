@@ -1,15 +1,35 @@
-import { useState } from "nuxt/app";
+import { ref, watch } from "vue";
 
-export const useIsAuth = (id?: string) => {
-  const isAuth = useState<boolean>("isAuth");
-  isAuth.value = useSupabaseClient().auth.getUser() !== null;
+export const useAuth = () => {
+  const user = useSupabaseUser();
+  const supabase = useSupabaseClient();
+  const isLoading = ref(true);
+
+  watch(
+    user,
+    () => {
+      isLoading.value = false;
+    },
+    { immediate: true }
+  );
+
+  const signIn = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) throw error;
+  };
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+  };
+
   return {
-    isAuth,
-    login() {
-      isAuth.value = true;
-    },
-    logout() {
-      isAuth.value = false;
-    },
+    user,
+    isLoading,
+    signIn,
+    signOut,
   };
 };
