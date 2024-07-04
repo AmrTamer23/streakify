@@ -1,43 +1,44 @@
 // composables/useHabit.js
 import { ref } from "vue";
 
-export const useHabit = () => {
+export const useHabits = () => {
   const habits = ref<Habit[]>([]);
   const isLoading = ref(false);
   const error = ref(null);
 
-  // const fetchHabits = async () => {
-  //   isLoading.value = true
-  //   error.value = null
-  //   try {
-  //     const response = await fetch('/api/habits')
-  //     habits.value = await response.json()
-  //   } catch (err) {
-  //     error.value = 'Failed to fetch habits'
-  //     console.error(err)
-  //   } finally {
-  //     isLoading.value = false
-  //   }
-  // }
+  const { user } = useAuth();
 
-  // const createHabit = async (habitData) => {
-  //   isLoading.value = true
-  //   error.value = null
-  //   try {
-  //     const response = await fetch('/api/habits', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(habitData)
-  //     })
-  //     const newHabit = await response.json()
-  //     habits.value.push(newHabit)
-  //   } catch (err) {
-  //     error.value = 'Failed to create habit'
-  //     console.error(err)
-  //   } finally {
-  //     isLoading.value = false
-  //   }
-  // }
+  const fetchHabits = async () => {
+    isLoading.value = true;
+    error.value = null;
+    try {
+      await useAsyncData("habitsData", () => {
+        return $fetch(`/api/habits?${user.value?.id}`).then((data) => {
+          habits.value = data as Habit[];
+        });
+      });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  const createHabit = async (icon: string, title: string) => {
+    const { data, pending, error, refresh } = await useAsyncData(
+      "HabitsData",
+      () =>
+        $fetch(`/api/habit`, {
+          method: "POST",
+          body: {
+            icon: icon,
+            title: title,
+            //@ts-ignore
+            userId: user.value?.id,
+          },
+        })
+    );
+  };
 
   // const updateHabit = async (id, habitData) => {
   //   isLoading.value = true
@@ -82,8 +83,8 @@ export const useHabit = () => {
     habits,
     isLoading,
     error,
-    // fetchHabits,
-    // createHabit,
+    fetchHabits,
+    createHabit,
     // updateHabit,
     deleteHabit,
   };

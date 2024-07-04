@@ -34,7 +34,7 @@ defineProps({
   },
 });
 
-const { deleteHabit } = useHabit();
+const { deleteHabit } = useHabits();
 </script>
 
 <template>

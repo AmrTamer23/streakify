@@ -10,27 +10,12 @@ import {
 import { ref } from "vue";
 import { Vue3IconPicker } from "vue3-icon-picker";
 import "vue3-icon-picker/dist/style.css";
-import { useAsyncData } from "nuxt/app";
-//@ts-ignore
-const supabase = useSupabaseUser();
 
 const icon = ref<string | null>(null);
 
 const title = ref<string>();
 
-async function addHabit() {
-  const { data, pending, error, refresh } = await useAsyncData("userData", () =>
-    $fetch(`/api/habit`, {
-      method: "POST",
-      body: {
-        icon: icon.value,
-        title: title.value,
-        //@ts-ignore
-        userId: supabase.value.id,
-      },
-    })
-  );
-}
+const { createHabit } = useHabits();
 </script>
 
 <template>
@@ -62,7 +47,7 @@ async function addHabit() {
           <Input id="title" v-model="title" class="col-span-3" />
         </div>
       </div>
-      <Button @click="addHabit">
+      <Button @click="title && icon && createHabit(icon, title)">
         <span
           className="icon-[ph--plus-bold]"
           role="img"
