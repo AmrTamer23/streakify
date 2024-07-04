@@ -12,9 +12,10 @@ export const useHabits = () => {
     isLoading.value = true;
     error.value = null;
     try {
-      await useAsyncData("habitsData", () => {
-        return $fetch(`/api/habits?${user.value?.id}`).then((data) => {
+      await useAsyncData("habitsData", async () => {
+        return await $fetch(`/api/habits?${user.value?.id}`).then((data) => {
           habits.value = data as Habit[];
+          console.log("data");
         });
       });
     } catch (err) {
@@ -25,18 +26,15 @@ export const useHabits = () => {
   };
 
   const createHabit = async (icon: string, title: string) => {
-    const { data, pending, error, refresh } = await useAsyncData(
-      "HabitsData",
-      () =>
-        $fetch(`/api/habit`, {
-          method: "POST",
-          body: {
-            icon: icon,
-            title: title,
-            //@ts-ignore
-            userId: user.value?.id,
-          },
-        })
+    await useAsyncData("HabitsData", () =>
+      $fetch(`/api/habit`, {
+        method: "POST",
+        body: {
+          icon: icon,
+          title: title,
+          userId: user.value?.id,
+        },
+      })
     );
   };
 

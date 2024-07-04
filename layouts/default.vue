@@ -6,10 +6,10 @@
         'linear-gradient(143.6deg, rgba(192, 132, 252, 0) 20.79%, rgba(232, 121, 249, 0.26) 40.92%, rgba(204, 171, 238, 0) 70.35%)',
     }"
   ></div>
-  <header class="pt-8 z-10 relative *:mx-auto">
+  <header class="pt-14 z-10 relative *:mx-auto">
     <NavBar class="flex-grow-0" />
   </header>
-  <main class="pb-8 relative z-10">
+  <main class="pb-8 relative z-10 *:overflow-hidden h-fit">
     <slot />
   </main>
 </template>

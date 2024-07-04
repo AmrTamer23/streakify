@@ -21,7 +21,7 @@ const { createHabit } = useHabits();
 <template>
   <Sheet>
     <SheetTrigger as-child>
-      <Button class="text-lg font-semibold gap-2">
+      <Button class="text-2xl gap-2 bg-transparent tracking-wide py-5">
         <span
           className="icon-[ph--plus-bold]"
           role="img"
