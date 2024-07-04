@@ -30,7 +30,7 @@ model Habit {
 model Activity {
   id       Int      @id @default(autoincrement())
   habitId  Int      // Foreign key referencing Habit model
-  habit    Habit    @relation(fields: [habitId], references: [id])
+  habit    Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
   x        Int
   y        Int
   date     String

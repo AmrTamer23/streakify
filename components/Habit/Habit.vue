@@ -33,6 +33,8 @@ defineProps({
     required: true,
   },
 });
+
+const { deleteHabit } = useHabit();
 </script>
 
 <template>
@@ -67,7 +69,8 @@ defineProps({
             </DropdownMenuTrigger>
             <DropdownMenuContent class="bg-zinc-900">
               <DropdownMenuItem
-                class="bg-red-700 text-zinc-200 hover:!bg-red-950"
+                class="bg-red-700 text-zinc-200 hover:!bg-red-950 hover:text-neutral-100"
+                @click="deleteHabit(habit.id)"
               >
                 <DropdownMenuLabel> Delete </DropdownMenuLabel>
               </DropdownMenuItem>
