@@ -4,8 +4,6 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-const state = useState<boolean>("state");
-
 const features = ref([
   {
     title: "Track your habits",

@@ -34,7 +34,7 @@ defineProps({
   },
 });
 
-const { deleteHabit } = useHabits();
+const { deleteHabit, updateHabit } = useHabits();
 </script>
 
 <template>
@@ -96,6 +96,7 @@ const { deleteHabit } = useHabits();
       <div class="flex items-center justify-center">
         <Button
           class="font-semibold bg-amber-500 text-neutral-900 flex items-center justify-center gap-2 lg:w-1/2 lg:mx-auto text-lg mt-4"
+          @click="updateHabit(habit.id)"
         >
           <span
             className="icon-[ic--round-done-outline] h-7 w-7"
