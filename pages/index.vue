@@ -9,21 +9,25 @@ const state = useState<boolean>("state");
 const features = ref([
   {
     title: "Track your habits",
+    icon: '<span class="icon-[ph--footprints-fill]" role="img" aria-hidden="true" />',
     description:
       "Streakify helps you track your habits and visualize your progress.",
   },
   {
     title: "Stay motivated",
+    icon: '<span class="icon-[subway--power]" role="img" aria-hidden="true" />',
     description:
       "Streakify motivates you to keep going by showing your streaks.",
   },
   {
     title: "Build good habits",
+    icon: '<span class="icon-[streamline--good-health-and-well-being-solid]" role="img" aria-hidden="true" />',
     description:
       "Streakify helps you build good habits by tracking your progress.",
   },
   {
     title: "Break bad habits",
+    icon: '<span class="icon-[simple-icons--acclaim]" role="img" aria-hidden="true" />',
     description:
       "Streakify helps you break bad habits by tracking your progress.",
   },
