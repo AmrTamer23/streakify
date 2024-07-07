@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 export const useHabits = () => {
-  const habits = ref<Habit[]>([]);
+  const habits = useState<Habit[]>("habits");
   const isLoading = ref(false);
   const error = ref(null);
 
@@ -15,7 +15,7 @@ export const useHabits = () => {
       await $fetch<Habit[]>(`/api/habits?userId=${user.value?.id}`).then(
         (data) => {
           habits.value = data;
-          console.log("Here");
+          console.log(habits.value);
           return data;
         }
       );
@@ -34,6 +34,10 @@ export const useHabits = () => {
         title: title,
         userId: user.value?.id,
       },
+    }).then((data) => {
+      habits.value.push({ ...data, activities: [] });
+      console.log(habits.value);
+      fetchHabits();
     });
   };
 

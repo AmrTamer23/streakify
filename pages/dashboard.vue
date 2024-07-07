@@ -1,8 +1,22 @@
 <script setup lang="ts">
+import { onMounted, watch } from "vue";
+
 const { user } = await useUser();
 const { fetchHabits, habits } = useHabits();
 
-fetchHabits();
+onMounted(async () => {
+  await fetchHabits();
+});
+
+watch(
+  () => user,
+  async (newUser) => {
+    if (newUser) {
+      await fetchHabits();
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>

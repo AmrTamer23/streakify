@@ -47,17 +47,21 @@ const { createHabit } = useHabits();
           <Input id="title" v-model="title" class="col-span-3" />
         </div>
       </div>
-      <Button @click="title && icon && createHabit(icon, title)">
-        <span
-          className="icon-[ph--plus-bold]"
-          role="img"
-          aria-hidden="true"
-        ></span>
-        <span> Add habit </span>
-      </Button>
+
       <SheetFooter>
         <SheetClose as-child>
-          <Button type="submit"> Save changes </Button>
+          <Button
+            @click="title && icon && createHabit(icon, title)"
+            type="submit"
+            class="gap-2"
+          >
+            <span
+              className="icon-[ph--plus-bold] h-5 w-5"
+              role="img"
+              aria-hidden="true"
+            ></span>
+            <span class="text-lg"> Add habit </span>
+          </Button>
         </SheetClose>
       </SheetFooter>
     </SheetContent>
