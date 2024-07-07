@@ -39,11 +39,11 @@ const { createHabit } = useHabits();
       </SheetHeader>
       <div class="grid gap-4 py-4">
         <div class="flex flex-col gap-2 items-start">
-          <Label for="icon" class="text-right"> Icon </Label>
+          <label for="icon" class="text-right"> Icon </label>
           <Vue3IconPicker placeholder="Select icon" v-model="icon" />
         </div>
         <div class="flex flex-col gap-2 items-start">
-          <Label for="title" class="text-right"> Title </Label>
+          <label for="title" class="text-right"> Title </label>
           <Input id="title" v-model="title" class="col-span-3" />
         </div>
       </div>
