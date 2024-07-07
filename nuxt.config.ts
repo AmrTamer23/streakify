@@ -3,6 +3,7 @@ import { defineNuxtConfig } from "nuxt/config";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+
   modules: [
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
@@ -10,14 +11,17 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "@vueuse/nuxt",
   ],
+
   typescript: {
     strict: true,
     typeCheck: true,
   },
+
   //@ts-ignore
   supabase: {
     redirect: false,
   },
+
   //@ts-ignore
   shadcn: {
     /**
@@ -30,4 +34,6 @@ export default defineNuxtConfig({
      */
     componentDir: "./components/ui",
   },
+
+  compatibilityDate: "2024-07-07",
 });

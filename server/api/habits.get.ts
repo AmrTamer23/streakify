@@ -1,26 +1,41 @@
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { prisma, connectPrisma, disconnectPrisma } from "~/server/prisma";
 
-//@ts-ignore
-export default defineEventHandler(async (e) => {
-  const userId = e.path.split("?").pop();
+export default defineEventHandler(async (event) => {
+  const query = getQuery(event);
+  const userId = query.userId as string;
+
   if (!userId) {
-    return new Response("Bad Request", { status: 400 });
+    throw createError({
+      statusCode: 400,
+      statusMessage: "UserId is required",
+    });
   }
-  const habits = await getHabits(userId);
-  if (!habits) {
-    return new Response("Habits not found", { status: 404 });
+
+  try {
+    await connectPrisma();
+    const habits = await getHabits(userId);
+    return habits;
+  } catch (error) {
+    console.error("Error in habits get handler:", error);
+    throw error;
+  } finally {
+    await disconnectPrisma();
   }
-  return habits;
 });
 
 const getHabits = async (userId: string) => {
-  return await prisma.habit.findMany({
-    where: {
-      userId: userId,
-    },
-    include: {
-      activities: true,
-    },
-  });
+  try {
+    const habits = await prisma.habit.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        activities: true,
+      },
+    });
+    return habits;
+  } catch (error) {
+    console.error("Error fetching habits:", error);
+    throw error;
+  }
 };
