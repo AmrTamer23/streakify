@@ -28,7 +28,7 @@ watch(
   </div>
   <Separator class="lg:w-3/4 mx-auto my-4 bg-neutral-600" />
   <div
-    class="grid lg:grid-cols-3 gap-y-4 lg:gap-x-4 lg:w-3/4 mx-auto overflow-y-hidden"
+    class="grid lg:grid-cols-3 gap-y-4 lg:gap-x-4 lg:w-3/4 mx-auto !overflow-y-scroll max-h-[calc(100vh-20rem)]"
   >
     <Habit v-for="habit in habits" :key="habit.id" :habit="habit" />
   </div>
