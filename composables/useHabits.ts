@@ -27,18 +27,34 @@ export const useHabits = () => {
   };
 
   const createHabit = async (icon: string, title: string) => {
-    await $fetch(`/api/habit`, {
-      method: "POST",
-      body: {
-        icon: icon,
-        title: title,
-        userId: user.value?.id,
-      },
-    }).then((data) => {
-      habits.value.push({ ...data, activities: [] });
-      console.log(habits.value);
-      fetchHabits();
-    });
+    // Create a temporary habit
+    const tempHabit = {
+      id: Date.now(), // temporary ID
+      icon,
+      title,
+      activities: [],
+    };
+
+    habits.value.push(tempHabit as unknown as Habit);
+
+    try {
+      const data = await $fetch("/api/habit", {
+        method: "POST",
+        body: {
+          icon: icon,
+          title: title,
+          userId: user.value?.id,
+        },
+      });
+
+      // Replace the temporary habit with the actual data from the server
+      const index = habits.value.findIndex((h) => h.id === tempHabit.id);
+      if (index !== -1) habits.value[index] = { ...data, activities: [] };
+    } catch (err) {
+      console.error(err);
+      // Roll back the change if the request fails
+      habits.value = habits.value.filter((h) => h.id !== tempHabit.id);
+    }
   };
 
   const updateHabit = async (id: number) => {
@@ -68,17 +84,25 @@ export const useHabits = () => {
   const deleteHabit = async (id: number) => {
     isLoading.value = true;
     error.value = null;
+
+    // Optimistically remove the habit from the list
+    const oldHabits = [...habits.value];
+    habits.value = habits.value.filter((h) => h.id !== id);
+
     try {
-      await $fetch(`/api/habits`, {
-        // @ts-ignore
+      await fetch("/api/habit", {
         method: "DELETE",
-        body: {
-          habitId: id,
+        headers: {
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          habitId: id,
+        }),
       });
-      habits.value = habits.value.filter((h) => h.id !== id);
     } catch (err) {
       console.error(err);
+      // Roll back the change if the request fails
+      habits.value = oldHabits;
     } finally {
       isLoading.value = false;
     }
