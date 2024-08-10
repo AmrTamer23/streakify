@@ -12,7 +12,7 @@ const router = useRouter();
 </script>
 
 <template>
-  <nav class="flex justify-between items-center w-3/4 mx-auto">
+  <nav class="flex justify-between items-center px-12">
     <NuxtLink to="/" class="w-fit p-0">
       <span
         class="font-semibold font-pt-mono text-4xl text-brand pointer-events-none select-none"
