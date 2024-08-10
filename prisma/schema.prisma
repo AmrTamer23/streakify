@@ -17,21 +17,22 @@ model User {
 }
 
 model Habit {
-  id            Int       @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   title         String
   icon          String
-  currStreak    Int       @default(0)
-  longestStreak Int       @default(0)
+  currStreak    Int        @default(0)
+  longestStreak Int        @default(0)
   activities    Activity[] // One-to-many relation with Activity model
-  userId        String    // Foreign key referencing User model
-  user          User      @relation(fields: [userId], references: [id])
+  weeklyTarget  Int        @default(0)
+  userId        String // Foreign key referencing User model
+  user          User       @relation(fields: [userId], references: [id])
 }
 
 model Activity {
-  id       Int      @id @default(autoincrement())
-  habitId  Int      // Foreign key referencing Habit model
-  habit    Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
-  x        Int
-  y        Int
-  date     String
+  id      Int    @id @default(autoincrement())
+  habitId Int // Foreign key referencing Habit model
+  habit   Habit  @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  x       Int
+  y       Int
+  date    String
 }

@@ -1,37 +1,36 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, watchEffect, ref } from "vue";
 
-const { activities } = defineProps({
-  activities: {
-    type: Object as () => Activity[],
-    required: true,
-  },
-});
+interface Activity {
+  x: number;
+  // Add other properties if needed
+}
 
-console.log(activities);
+const props = defineProps<{
+  activities: Activity[];
+}>();
 
-const squares = computed(() => {
-  const result = [];
-  for (var i = 1; i < 365; i++) {
-    if (activities.find((activity) => activity.x === i)) {
-      console.log("found");
-      result.push(`<li data-level="3"></li>`);
+const squares = ref<string[]>([]);
+
+watchEffect(() => {
+  squares.value = Array.from({ length: 365 }, (_, i) => {
+    const index = i + 1;
+    if (props.activities.some((activity) => activity.x === index)) {
+      return `<li data-level="3"></li>`;
     } else {
-      result.push(`<li data-level="0"></li>`);
+      return `<li data-level="0"></li>`;
     }
-  }
-  return result.join("");
+  });
 });
 
-console.log(squares.value); // This will now log the generated HTML after computation
+const squaresHtml = computed(() => squares.value.join(""));
 </script>
 
 <template>
   <div class="graph">
-    <ul class="squares" v-html="squares"></ul>
+    <ul class="squares" v-html="squaresHtml"></ul>
   </div>
 </template>
-
 <style>
 /* Article - https://bitsofco.de/github-contribution-graph-css-grid/ */
 
