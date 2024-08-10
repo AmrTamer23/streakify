@@ -99,7 +99,7 @@ const { deleteHabit, updateHabit } = useHabits();
           @click="updateHabit(habit.id)"
         >
           <span
-            className="icon-[ic--round-done-outline] h-7 w-7"
+            class="icon-[ic--round-done-outline] h-7 w-7"
             role="img"
             aria-hidden="true"
           />

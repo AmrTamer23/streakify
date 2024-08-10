@@ -22,11 +22,7 @@ const { createHabit } = useHabits();
   <Sheet>
     <SheetTrigger as-child>
       <Button class="text-2xl gap-2 bg-transparent tracking-wide py-5">
-        <span
-          className="icon-[ph--plus-bold]"
-          role="img"
-          aria-hidden="true"
-        ></span>
+        <span class="icon-[ph--plus-bold]" role="img" aria-hidden="true"></span>
         <span> Create Habit </span>
       </Button>
     </SheetTrigger>
@@ -56,7 +52,7 @@ const { createHabit } = useHabits();
             class="gap-2"
           >
             <span
-              className="icon-[ph--plus-bold] h-5 w-5"
+              class="icon-[ph--plus-bold] h-5 w-5"
               role="img"
               aria-hidden="true"
             ></span>
