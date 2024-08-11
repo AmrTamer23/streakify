@@ -47,8 +47,8 @@ watch(
           class="bg-background *:text-zinc-100 border-2 border-zinc-700 shadow-lg shadow-brand"
         >
           <CardHeader>
-            <CardTitle>Insights</CardTitle>
-            <CardDescription
+            <CardTitle class="text-4xl tracking-wide">Insights</CardTitle>
+            <CardDescription class="text-zinc-100 text-lg"
               >Track your progress and stay motivated.</CardDescription
             >
           </CardHeader>
@@ -57,10 +57,8 @@ watch(
               <div
                 class="bg-muted/20 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
               >
-                <div class="text-4xl font-bold">12</div>
-                <div class="text-sm text-muted-foreground">
-                  Habits Completed
-                </div>
+                <div class="text-4xl font-bold">{{ habits?.length }}</div>
+                <div class="text-zinc-300">Habits Created</div>
               </div>
               <div
                 class="bg-muted/20 rounded-lg p-4 flex flex-col items-center justify-center gap-2"

@@ -13,6 +13,7 @@ type Habit = {
   currStreak: number;
   longestStreak: number;
   activities: Activity[];
+  weeklyTarget: number;
 };
 
 type Activity = {
