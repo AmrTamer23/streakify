@@ -15,7 +15,6 @@ export const useHabits = () => {
       await $fetch<Habit[]>(`/api/habits?userId=${user.value?.id}`).then(
         (data) => {
           habits.value = data;
-          console.log(habits.value);
           return data;
         }
       );

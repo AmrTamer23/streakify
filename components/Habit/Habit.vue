@@ -20,6 +20,7 @@ import {
 
 import Separator from "../ui/separator/Separator.vue";
 import HabitActivityAreaGraph from "../HabitActivityGraph/HabitActivityGraph.vue";
+import { checkActivitiesForToday } from "~/lib/utils";
 
 // Reuse `form` section
 const [UseTemplate, GridForm] = createReusableTemplate();
@@ -97,13 +98,19 @@ const { deleteHabit, updateHabit } = useHabits();
         <Button
           class="font-semibold bg-amber-500 text-neutral-900 flex items-center justify-center gap-2 lg:w-1/2 lg:mx-auto text-lg mt-4"
           @click="updateHabit(habit.id)"
+          :disabled="checkActivitiesForToday(habit.activities)"
         >
           <span
             class="icon-[ic--round-done-outline] h-7 w-7"
             role="img"
             aria-hidden="true"
           />
-          <span> Done for Today </span>
+          <span v-if="!checkActivitiesForToday(habit.activities)">
+            Mark Done for Today
+          </span>
+          <span v-if="checkActivitiesForToday(habit.activities)">
+            Done for Today
+          </span>
         </Button>
       </div>
     </section>
