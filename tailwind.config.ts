@@ -3,7 +3,7 @@ const { addDynamicIconSelectors } = require("@iconify/tailwind");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
+  darkMode: ["media"],
   safelist: ["dark"],
   prefix: "",
   content: ["./src/**/*.{js,jsx,ts,tsx, vue}"],

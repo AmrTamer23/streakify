@@ -10,10 +10,19 @@ import {
 import { ref } from "vue";
 import { Vue3IconPicker } from "vue3-icon-picker";
 import "vue3-icon-picker/dist/style.css";
+import {
+  NumberField,
+  NumberFieldContent,
+  NumberFieldDecrement,
+  NumberFieldIncrement,
+  NumberFieldInput,
+} from "@/components/ui/number-field";
 
 const icon = ref<string | null>(null);
 
 const title = ref<string>();
+
+const targetPerWeek = ref<number>();
 
 const { createHabit } = useHabits();
 </script>
@@ -28,19 +37,42 @@ const { createHabit } = useHabits();
     </SheetTrigger>
     <SheetContent>
       <SheetHeader>
-        <SheetTitle class="text-zinc-200"> Create a new habit </SheetTitle>
+        <SheetTitle class="text-zinc-200"> Create a new Habit </SheetTitle>
         <SheetDescription class="text-zinc-300">
-          Fill in the details below to create a new habit.
+          Fill in the details below to create a new Habit.
         </SheetDescription>
       </SheetHeader>
       <div class="grid gap-4 py-4">
         <div class="flex flex-col gap-2 items-start">
-          <label for="icon" class="text-right"> Icon </label>
-          <Vue3IconPicker placeholder="Select icon" v-model="icon" />
-        </div>
-        <div class="flex flex-col gap-2 items-start">
-          <label for="title" class="text-right"> Title </label>
+          <label for="title" class="flex flex-col gap-1">
+            <span> Title </span>
+            <span class="text-xs text-zinc-500"> The name of your Habit </span>
+          </label>
           <Input id="title" v-model="title" class="col-span-3" />
+        </div>
+        <div class="flex gap-2 items-center">
+          <div class="flex flex-col gap-2 items-start">
+            <label for="target" class="flex flex-col gap-1">
+              <span> Target </span>
+              <span class="text-xs text-zinc-500"> Per Week </span>
+            </label>
+            <NumberField :min="1" :max="7" class="text-lg">
+              <NumberFieldContent>
+                <NumberFieldDecrement />
+                <NumberFieldInput />
+                <NumberFieldIncrement />
+              </NumberFieldContent>
+            </NumberField>
+          </div>
+          <div class="flex flex-col gap-2 items-start">
+            <label for="icon" class="flex flex-col gap-1">
+              <span> Icon </span>
+              <span class="text-xs text-zinc-500">
+                Pick what best describe the habit
+              </span>
+            </label>
+            <Vue3IconPicker placeholder="Select icon" v-model="icon" />
+          </div>
         </div>
       </div>
 
@@ -49,7 +81,7 @@ const { createHabit } = useHabits();
           <Button
             @click="title && icon && createHabit(icon, title)"
             type="submit"
-            class="gap-2"
+            class="gap-2 mt-4 w-full"
           >
             <span
               class="icon-[ph--plus-bold] h-5 w-5"
