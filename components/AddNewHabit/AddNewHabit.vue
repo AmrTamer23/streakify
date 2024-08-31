@@ -30,7 +30,7 @@ const { createHabit } = useHabits();
 <template>
   <Sheet>
     <SheetTrigger as-child>
-      <Button class="text-2xl gap-2 bg-transparent tracking-wide py-5">
+      <Button class="text-xl gap-2 bg-transparent tracking-wide py-5">
         <span class="icon-[ph--plus-bold]" role="img" aria-hidden="true"></span>
         <span> Create Habit </span>
       </Button>
