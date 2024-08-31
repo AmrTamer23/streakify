@@ -56,7 +56,12 @@ const { createHabit } = useHabits();
               <span> Target </span>
               <span class="text-xs text-zinc-500"> Per Week </span>
             </label>
-            <NumberField :min="1" :max="7" class="text-lg">
+            <NumberField
+              :min="1"
+              :max="7"
+              class="text-lg"
+              v-model="targetPerWeek"
+            >
               <NumberFieldContent>
                 <NumberFieldDecrement />
                 <NumberFieldInput />
