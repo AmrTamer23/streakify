@@ -84,7 +84,9 @@ const { createHabit } = useHabits();
       <SheetFooter>
         <SheetClose as-child>
           <Button
-            @click="title && icon && createHabit(icon, title)"
+            @click="
+              title && icon && createHabit(icon, title, targetPerWeek ?? 7)
+            "
             type="submit"
             class="gap-2 mt-4 w-full"
           >

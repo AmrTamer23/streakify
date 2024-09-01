@@ -25,7 +25,7 @@ export const useHabits = () => {
     }
   };
 
-  const createHabit = async (icon: string, title: string) => {
+  const createHabit = async (icon: string, title: string, target: number) => {
     // Create a temporary habit
     const tempHabit = {
       id: Date.now(), // temporary ID
@@ -42,6 +42,7 @@ export const useHabits = () => {
         body: {
           icon: icon,
           title: title,
+          target: target,
           userId: user.value?.id,
         },
       });
