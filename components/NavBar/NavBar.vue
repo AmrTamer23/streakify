@@ -89,35 +89,14 @@ const router = useRouter();
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-    <DropdownMenu v-if="user">
-      <DropdownMenuTrigger class="flex">
-        <Avatar class="h-12 w-12 border-[#FFC278] border-2">
-          <AvatarImage
-            src="https://github.com/radix-vue.png"
-            alt="@radix-vue"
-          />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        class="bg-background mr-6 min-w-0 w-52 border-amber-500 p-0 text-neutral-100 gap-0"
+    <div>
+      <Button
+        class="text-lg hover:bg-red-700 hover:text-white"
+        variant="ghost"
+        @click="signOut"
       >
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem class="-mt-1 rounded-none">Profile</DropdownMenuItem>
-        <DropdownMenuItem class="rounded-none">Billing</DropdownMenuItem>
-        <DropdownMenuItem class="rounded-none">Team</DropdownMenuItem>
-        <DropdownMenuItem class="-mb-1 rounded-none"
-          >Subscription</DropdownMenuItem
-        >
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          @click="signOut().then(() => router.push('/login'))"
-          class="bg-red-800 flex justify-between -mt-1 rounded-none"
-        >
-          <span> Logout </span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        Logout
+      </Button>
+    </div>
   </nav>
 </template>
