@@ -13,7 +13,7 @@ model User {
   email    String  @unique
   username String  @unique
   name     String?
-  habits   Habit[] // One-to-many relation with Habit model
+  habits   Habit[]
 }
 
 model Habit {
@@ -21,18 +21,18 @@ model Habit {
   title         String
   icon          String
   currStreak    Int        @default(0)
+  userId        String
   longestStreak Int        @default(0)
-  activities    Activity[] // One-to-many relation with Activity model
   weeklyTarget  Int        @default(0)
-  userId        String // Foreign key referencing User model
+  activities    Activity[]
   user          User       @relation(fields: [userId], references: [id])
 }
 
 model Activity {
   id      Int    @id @default(autoincrement())
-  habitId Int // Foreign key referencing Habit model
-  habit   Habit  @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  habitId Int
   x       Int
   y       Int
   date    String
+  habit   Habit  @relation(fields: [habitId], references: [id], onDelete: Cascade)
 }

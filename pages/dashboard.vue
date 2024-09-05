@@ -67,12 +67,14 @@ const calculateStreakCompletion = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col h-[calc(100vh-120px)]">
     <main
       class="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 bg-transparent"
     >
       <div class="col-span-1 lg:col-span-2 bg-transparent">
-        <Card class="bg-background *:text-zinc-100 border-0">
+        <Card
+          class="bg-background *:text-zinc-100 h-full !border[2px] !border-brand/20"
+        >
           <CardHeader class="flex items-center justify-between flex-row">
             <div class="space-y-2">
               <CardTitle class="text-4xl tracking-wide">Your Habits</CardTitle>
@@ -82,16 +84,18 @@ const calculateStreakCompletion = computed(() => {
             </div>
             <AddNewHabit />
           </CardHeader>
-          <CardContent>
+          <CardContent class="overflow-y-auto flex-grow">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               <Habit v-for="habit in habits" :key="habit.id" :habit="habit" />
             </div>
           </CardContent>
         </Card>
       </div>
-      <div class="col-span-1 lg:col-span-1">
+      <div
+        class="col-span-1 lg:col-span-1 flex flex-col items-stretch justify-between bg-transparent gap-6"
+      >
         <Card
-          class="bg-background *:text-zinc-100 border-2 border-zinc-700 shadow-lg shadow-brand"
+          class="bg-background *:text-zinc-100 !border-[1px] !border-brand/20 shadow-lg flex-grow h-1/2"
         >
           <CardHeader>
             <CardTitle class="text-4xl tracking-wide">Insights</CardTitle>
@@ -99,7 +103,7 @@ const calculateStreakCompletion = computed(() => {
               >Track your progress and stay motivated.</CardDescription
             >
           </CardHeader>
-          <CardContent>
+          <CardContent class="flex flex-col h-full">
             <div class="grid grid-cols-2 gap-4">
               <div
                 class="bg-muted/20 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
@@ -132,9 +136,16 @@ const calculateStreakCompletion = computed(() => {
                 <div class="text-zinc-300 text-sm">Streak Completion</div>
               </div>
             </div>
-            <div class="mt-6">
-              <LinechartChart class="aspect-[16/9]" />
+            <div class="mt-6 flex-grow">
+              <LinechartChart class="h-full" />
             </div>
+          </CardContent>
+        </Card>
+        <Card
+          class="bg-background *:text-zinc-100 !border-[1px] shadow-lg flex-grow py-4 h-1/2 !border-brand/20"
+        >
+          <CardContent>
+            <HabitLineChart class="h-full" />
           </CardContent>
         </Card>
       </div>

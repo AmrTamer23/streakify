@@ -1,9 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
-
-// server/api/habits/line-chart.ts
 export default defineEventHandler(async (event) => {
+  const prisma = new PrismaClient();
+
   const query = getQuery(event);
   const userId = query.userId as string;
 
@@ -46,5 +45,7 @@ export default defineEventHandler(async (event) => {
   } catch (error) {
     console.error("Error fetching line chart data:", error);
     return { error: "Failed to fetch line chart data" };
+  } finally {
+    await prisma.$disconnect();
   }
 });
