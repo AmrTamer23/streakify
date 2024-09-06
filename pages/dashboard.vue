@@ -1,8 +1,33 @@
 <script setup lang="ts">
-import { onMounted, watch, computed } from "vue";
+import { onMounted, watch, computed, ref } from "vue";
 
 const { user } = await useUser();
 const { fetchHabits, habits } = useHabits();
+
+const itemsPerPage = 6;
+const currentPage = ref(1);
+
+const paginatedHabits = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  return habits.value.slice(start, end);
+});
+
+const totalPages = computed(() =>
+  Math.ceil(habits.value.length / itemsPerPage)
+);
+
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+  }
+};
+
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  }
+};
 
 onMounted(async () => {
   await fetchHabits();
@@ -73,7 +98,7 @@ const calculateStreakCompletion = computed(() => {
     >
       <div class="col-span-1 lg:col-span-2 bg-transparent">
         <Card
-          class="bg-background *:text-zinc-100 !border[2px] !border-brand/20"
+          class="bg-background *:text-zinc-100 !border[2px] !border-brand/20 h-full flex flex-col justify-between"
         >
           <CardHeader class="flex items-center justify-between flex-row">
             <div class="space-y-2">
@@ -86,9 +111,46 @@ const calculateStreakCompletion = computed(() => {
           </CardHeader>
           <CardContent class="overflow-y-auto flex-grow">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <Habit v-for="habit in habits" :key="habit.id" :habit="habit" />
+              <Habit
+                v-for="habit in paginatedHabits"
+                :key="habit.id"
+                :habit="habit"
+              />
             </div>
           </CardContent>
+          <CardFooter class="w-full">
+            <div class="mt-4 flex justify-between items-center w-full">
+              <Button @click="prevPage" :disabled="currentPage === 1"
+                ><svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="m11 18l-6-6l6-6l1.4 1.4L7.825 12l4.575 4.6zm6.6 0l-6-6l6-6L19 7.4L14.425 12L19 16.6z"
+                  />
+                </svg>
+              </Button>
+              <span class="text-zinc-500 text-sm"
+                >Page {{ currentPage }} of {{ totalPages }}</span
+              >
+              <Button @click="nextPage" :disabled="currentPage === totalPages"
+                ><svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M9.575 12L5 7.4L6.4 6l6 6l-6 6L5 16.6zm6.6 0L11.6 7.4L13 6l6 6l-6 6l-1.4-1.4z"
+                  />
+                </svg>
+              </Button>
+            </div>
+          </CardFooter>
         </Card>
       </div>
       <div
