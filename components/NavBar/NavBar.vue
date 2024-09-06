@@ -2,10 +2,17 @@
 import { ref } from "vue";
 import { Button } from "@/components/ui/button";
 import DropdownMenu from "../ui/dropdown-menu/DropdownMenu.vue";
+import { useRouter } from "vue-router";
 const isNavOpen = ref(false);
 const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
 
 const { signOut, user } = useAuth();
+const router = useRouter();
+
+const handleSignOut = async () => {
+  await signOut();
+  router.push("/");
+};
 </script>
 
 <template>
@@ -39,6 +46,18 @@ const { signOut, user } = useAuth();
             >Login</Button
           >
         </NuxtLink>
+      </li>
+    </ul>
+    <ul class="flex items-center gap-2" v-else>
+      <li>
+        <Button
+          size="lg"
+          variant="ghost"
+          class="font-semibold text-lg hover:bg-red-700 hover:text-white"
+          aria-label="Logout"
+          @click="handleSignOut"
+          >Logout</Button
+        >
       </li>
     </ul>
     <div class="lg:hidden" v-if="!user">
@@ -86,14 +105,32 @@ const { signOut, user } = useAuth();
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-    <div>
-      <Button
-        class="text-lg hover:bg-red-700 hover:text-white"
-        variant="ghost"
-        @click="signOut"
-      >
-        Logout
-      </Button>
+    <div class="lg:hidden" v-else>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Button class="border-0 w-14">
+            <Icon
+              name="streamline:interface-setting-menu-2-button-parallel-horizontal-lines-menu-navigation-staggered-three-hamburger"
+              size="1.3rem"
+            />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          class="bg-background mr-6 min-w-0 w-52 border-amber-500 p-0"
+        >
+          <DropdownMenuItem class="p-0">
+            <Button
+              class="border-0 w-full py-6 rounded-none text-start group/logoutBtnMobile"
+              @click="handleSignOut"
+            >
+              <span
+                class="text-lg text-white w-full group-active/logoutBtnMobile:text-black"
+                >Logout</span
+              >
+            </Button>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   </nav>
 </template>

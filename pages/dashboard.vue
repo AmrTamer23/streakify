@@ -10,11 +10,11 @@ const currentPage = ref(1);
 const paginatedHabits = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;
   const end = start + itemsPerPage;
-  return habits.value.slice(start, end);
+  return habits.value?.slice(start, end);
 });
 
 const totalPages = computed(() =>
-  Math.ceil(habits.value.length / itemsPerPage)
+  Math.ceil(habits.value?.length / itemsPerPage)
 );
 
 const nextPage = () => {
@@ -44,20 +44,20 @@ watch(
 );
 
 const calculateCompletionRate = computed(() => {
-  if (!habits.value || habits.value.length === 0) return 0;
+  if (!habits.value || habits.value?.length === 0) return 0;
   const completedHabits = habits.value.filter((habit) =>
     habit.activities.some(
       (activity) =>
         new Date(activity.date).toDateString() === new Date().toDateString()
     )
   );
-  return Math.round((completedHabits.length / habits.value.length) * 100);
+  return Math.round((completedHabits?.length / habits.value?.length) * 100);
 });
 
 const calculateAverageHabitsPerDay = computed(() => {
-  if (!habits.value || habits.value.length === 0) return 0;
+  if (!habits.value || habits.value?.length === 0) return 0;
   const totalActivities = habits.value.reduce(
-    (sum, habit) => sum + habit.activities.length,
+    (sum, habit) => sum + habit.activities?.length,
     0
   );
   const uniqueDates = new Set(
@@ -71,7 +71,7 @@ const calculateAverageHabitsPerDay = computed(() => {
 });
 
 const calculateStreakCompletion = computed(() => {
-  if (!habits.value || habits.value.length === 0) return 0;
+  if (!habits.value || habits.value?.length === 0) return 0;
   const totalWeeklyTarget = habits.value.reduce(
     (sum, habit) => sum + habit.weeklyTarget,
     0
