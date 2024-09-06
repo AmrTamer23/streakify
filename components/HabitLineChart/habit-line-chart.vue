@@ -7,10 +7,6 @@ interface ActivityData {
   value: number;
 }
 
-const props = defineProps<{
-  habitId: number;
-}>();
-
 const data = ref<any>([]);
 
 const formatXAxis = (tick: string | Date) => {
@@ -84,7 +80,7 @@ onMounted(async () => {
     :categories="['Habits Completed']"
     :colors="['#FFC278']"
     :y-formatter="
-      (tick: string | number | bigint, i: any) => {
+      (tick: number | Date, i: number, ticks: number[] | Date[]) => {
         return typeof tick === 'number'
           ? `${new Intl.NumberFormat('us').format(tick).toString()}`
           : '';
