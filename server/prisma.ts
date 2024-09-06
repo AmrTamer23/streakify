@@ -1,23 +1,14 @@
 // prisma.ts
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 
-declare global {
-  var prisma: PrismaClient | undefined;
-}
+import { type PrismaClient } from "@prisma/client";
 
-export const prisma = global.prisma || new PrismaClient();
+// declare global {
+//   var prisma: PrismaClient | undefined;
+// }
 
-if (process.env.NODE_ENV !== "production") global.prisma = prisma;
+// if (process.env.NODE_ENV !== "production") global.prisma = prisma;
 
-export async function connectPrisma() {
-  try {
-    await prisma.$connect();
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-    throw error;
-  }
-}
-
-export async function disconnectPrisma() {
+export async function disconnectPrisma(prisma: PrismaClient) {
   await prisma.$disconnect();
 }

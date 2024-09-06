@@ -1,20 +1,19 @@
-import { prisma, connectPrisma, disconnectPrisma } from "~/server/prisma";
+import { PrismaClient } from "@prisma/client";
 import { daysBetweenDates } from "~/lib/utils";
+import { disconnectPrisma } from "../prisma";
 
 export default defineEventHandler(async (e) => {
   const body = await readBody(e);
   let { habitId, isDone } = body;
   const timestamp = Date.now();
-
+  const prisma = new PrismaClient();
   try {
-    await connectPrisma();
     const result = await updateHabit(isDone, habitId, timestamp);
     return result;
   } catch (error) {
     console.error("Error in habit update handler:", error);
     throw error;
   } finally {
-    await disconnectPrisma();
   }
 });
 
@@ -23,6 +22,8 @@ export const updateHabit = async (
   habitId: number,
   date: number
 ) => {
+  const prisma = new PrismaClient();
+
   try {
     const activity: Activity[] = await prisma.$queryRaw`
       SELECT * FROM "Activity"
@@ -63,5 +64,7 @@ export const updateHabit = async (
   } catch (error) {
     console.error("Error updating habit:", error);
     throw error;
+  } finally {
+    await prisma.$disconnect();
   }
 };
