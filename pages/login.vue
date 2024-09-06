@@ -54,7 +54,7 @@ const { signIn, user } = useAuth();
           >Login</Button
         >
       </form>
-      <div>
+      <div class="mt-6 mb-3 w-full flex justify-center items-center">
         <p>
           Don't have an account?
           <NuxtLink to="/register" class="hover:text-amber-500"
