@@ -1,4 +1,4 @@
-import { prisma, connectPrisma, disconnectPrisma } from "~/server/prisma";
+import { PrismaClient } from "@prisma/client";
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
@@ -12,18 +12,18 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    await connectPrisma();
     const habits = await getHabits(userId);
     return habits;
   } catch (error) {
     console.error("Error in habits get handler:", error);
     throw error;
   } finally {
-    await disconnectPrisma();
   }
 });
 
 const getHabits = async (userId: string) => {
+  const prisma = new PrismaClient();
+
   try {
     const habits = await prisma.habit.findMany({
       where: {
