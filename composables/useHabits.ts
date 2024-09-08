@@ -26,12 +26,14 @@ export const useHabits = () => {
   };
 
   const createHabit = async (icon: string, title: string, target: number) => {
-    // Create a temporary habit
-    const tempHabit = {
-      id: Date.now(), // temporary ID
+    const tempHabit: Habit = {
+      id: Date.now(),
       icon,
       title,
       activities: [],
+      currStreak: 0,
+      longestStreak: 0,
+      weeklyTarget: target,
     };
 
     habits.value.push(tempHabit as unknown as Habit);

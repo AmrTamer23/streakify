@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { createReusableTemplate, useMediaQuery } from "@vueuse/core";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -28,14 +28,42 @@ const isDesktop = useMediaQuery("(min-width: 768px)");
 
 const isOpen = ref(false);
 
-defineProps({
+const props = defineProps({
   habit: {
     type: Object as () => Habit,
     required: true,
   },
 });
 
+const localHabit = ref({ ...props.habit });
+
+const isDoneForToday = computed(() =>
+  checkActivitiesForToday(localHabit.value.activities)
+);
+
 const { deleteHabit, updateHabit } = useHabits();
+
+const handleUpdateHabit = async () => {
+  // Optimistically update the local state
+  const today = new Date().toISOString().split("T")[0];
+  localHabit.value.activities.push({
+    id: 0,
+    habitId: 0,
+    x: 0,
+    y: 0,
+    date: today,
+  });
+
+  try {
+    // Perform the actual update
+    await updateHabit(localHabit.value.id);
+  } catch (error) {
+    // If the update fails, revert the optimistic change
+    localHabit.value.activities.pop();
+    console.error("Failed to update habit:", error);
+    // You might want to show an error message to the user here
+  }
+};
 </script>
 
 <template>
@@ -97,20 +125,16 @@ const { deleteHabit, updateHabit } = useHabits();
       <div class="flex items-center justify-center">
         <Button
           class="font-semibold bg-amber-500 text-neutral-900 flex items-center justify-center gap-2 lg:w-1/2 lg:mx-auto text-lg mt-4"
-          @click="updateHabit(habit.id)"
-          :disabled="checkActivitiesForToday(habit.activities)"
+          @click="handleUpdateHabit"
+          :disabled="isDoneForToday"
         >
           <span
             class="icon-[ic--round-done-outline] h-7 w-7"
             role="img"
             aria-hidden="true"
           />
-          <span v-if="!checkActivitiesForToday(habit.activities)">
-            Mark Done for Today
-          </span>
-          <span v-if="checkActivitiesForToday(habit.activities)">
-            Done for Today
-          </span>
+          <span v-if="!isDoneForToday"> Mark Done for Today </span>
+          <span v-else> Done for Today </span>
         </Button>
       </div>
     </section>
