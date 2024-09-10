@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 
 //@ts-ignore
 export default defineEventHandler(async (e) => {
@@ -15,12 +14,21 @@ export const addHabit = async (
   userId: string,
   target: number
 ) => {
-  return await prisma.habit.create({
-    data: {
-      icon,
-      title,
-      userId: userId,
-      weeklyTarget: target,
-    },
-  });
+  const prisma = new PrismaClient();
+
+  try {
+    return await prisma.habit.create({
+      data: {
+        icon,
+        title,
+        userId,
+        weeklyTarget: target,
+      },
+    });
+  } catch (error) {
+    console.error("Error in habit post handler:", error);
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
 };

@@ -1,19 +1,17 @@
 import { PrismaClient } from "@prisma/client";
 import { daysBetweenDates } from "~/lib/utils";
-import { disconnectPrisma } from "../prisma";
 
 export default defineEventHandler(async (e) => {
   const body = await readBody(e);
   let { habitId, isDone } = body;
   const timestamp = Date.now();
-  const prisma = new PrismaClient();
+
   try {
     const result = await updateHabit(isDone, habitId, timestamp);
     return result;
   } catch (error) {
     console.error("Error in habit update handler:", error);
     throw error;
-  } finally {
   }
 });
 

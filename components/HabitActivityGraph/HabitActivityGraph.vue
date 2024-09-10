@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watchEffect, ref } from "vue";
+import { computed, watch, ref } from "vue";
 
 interface Activity {
   x: number;
@@ -12,7 +12,7 @@ const props = defineProps<{
 
 const squares = ref<string[]>([]);
 
-watchEffect(() => {
+const updateSquares = () => {
   squares.value = Array.from({ length: 365 }, (_, i) => {
     const index = i + 1;
     if (props.activities.some((activity) => activity.x === index)) {
@@ -21,7 +21,9 @@ watchEffect(() => {
       return `<li data-level="0"></li>`;
     }
   });
-});
+};
+
+watch(() => props.activities, updateSquares, { immediate: true, deep: true });
 
 const squaresHtml = computed(() => squares.value.join(""));
 </script>
