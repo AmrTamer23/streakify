@@ -62,31 +62,6 @@ const { signIn, user } = useAuth();
           >
         </p>
       </div>
-      <div class="flex items-center w-full">
-        <Separator class="flex-1 h-[0.05rem]" />
-        <span class="flex-0 px-2 text-lg italic font-thin"> OR </span>
-        <Separator class="flex-1 h-[0.05rem]" />
-      </div>
-      <div class="flex gap-2 w-full max-sm:flex-col max-sm:gap-4">
-        <Button class="flex-grow flex justify-center items-end gap-2">
-          <Icon
-            name="logos:google-icon"
-            size="1.5rem"
-            class="[&_path]:stroke-black"
-          ></Icon>
-          <span> Continue with Google </span>
-        </Button>
-        <Button
-          class="flex-grow flex justify-center items-end gap-2 group/btnGithub"
-        >
-          <Icon
-            name="logos:github-icon"
-            size="1.6rem"
-            class="[&_path]:fill-white group-hover/btnGithub:[&_path]:fill-[#333]"
-          ></Icon>
-          <span> Continue with GitHub </span>
-        </Button>
-      </div>
     </div>
     <div v-else>
       <p>You are already logged in.</p>
