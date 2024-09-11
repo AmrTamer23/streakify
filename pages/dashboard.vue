@@ -44,14 +44,14 @@ watch(
 );
 
 const calculateCompletionRate = computed(() => {
-  if (!habits.value || habits.value?.length === 0) return 0;
+  if (!habits.value || habits.value.length === 0) return 0;
+  const today = new Date().setHours(0, 0, 0, 0);
   const completedHabits = habits.value.filter((habit) =>
     habit.activities.some(
-      (activity) =>
-        new Date(activity.date).toDateString() === new Date().toDateString()
+      (activity) => new Date(activity.date).setHours(0, 0, 0, 0) === today
     )
   );
-  return Math.round((completedHabits?.length / habits.value?.length) * 100);
+  return Math.round((completedHabits.length / habits.value.length) * 100);
 });
 
 const calculateAverageHabitsPerDay = computed(() => {
@@ -71,24 +71,46 @@ const calculateAverageHabitsPerDay = computed(() => {
 });
 
 const calculateStreakCompletion = computed(() => {
-  if (!habits.value || habits.value?.length === 0) return 0;
+  if (!habits.value || habits.value.length === 0) return 0;
   const totalWeeklyTarget = habits.value.reduce(
-    (sum, habit) => sum + habit.weeklyTarget,
+    (sum, habit) => sum + (habit.weeklyTarget || 0),
     0
   );
+  if (totalWeeklyTarget === 0) return 0;
+
+  const today = new Date();
+  const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
+  weekStart.setHours(0, 0, 0, 0);
+
   const completedThisWeek = habits.value.reduce((sum, habit) => {
     const thisWeekActivities = habit.activities.filter((activity) => {
       const activityDate = new Date(activity.date);
-      const today = new Date();
-      const weekStart = new Date(
-        today.setDate(today.getDate() - today.getDay())
-      );
       return activityDate >= weekStart;
     });
-    return sum + thisWeekActivities?.length;
+    return sum + thisWeekActivities.length;
   }, 0);
   return Math.round((completedThisWeek / totalWeeklyTarget) * 100);
 });
+
+// Add this watch to log habits when they change
+watch(
+  habits,
+  (newHabits) => {
+    console.log("Habits updated:", newHabits);
+  },
+  { deep: true }
+);
+
+// Add this watch to refetch habits when needed
+watch(
+  habits,
+  () => {
+    if (!habits.value || habits.value.length === 0) {
+      fetchHabits();
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>

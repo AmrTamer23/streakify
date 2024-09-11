@@ -25,16 +25,19 @@ export const useHabits = () => {
     }
   };
 
-  const createHabit = async (icon: string, title: string) => {
+  const createHabit = async (icon: string, title: string, target: number) => {
     // Create a temporary habit
     const tempHabit = {
       id: Date.now(), // temporary ID
       icon,
       title,
       activities: [],
+      currStreak: 0,
+      longestStreak: 0,
+      weeklyTarget: target,
     };
 
-    habits.value.push(tempHabit as unknown as Habit);
+    habits.value.push(tempHabit);
 
     try {
       const data = await $fetch("/api/habit", {
@@ -43,6 +46,7 @@ export const useHabits = () => {
           icon: icon,
           title: title,
           userId: user.value?.id,
+          target: target,
         },
       });
 
