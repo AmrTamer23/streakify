@@ -17,18 +17,17 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import Separator from "../ui/separator/Separator.vue";
 import HabitActivityAreaGraph from "../HabitActivityGraph/HabitActivityGraph.vue";
-import { checkActivitiesForToday } from "~/lib/utils";
+import { checkActivitiesForToday, calculateLongestStreak } from "~/lib/utils";
+import dayjs from "dayjs";
 
-// Reuse `form` section
 const [UseTemplate, GridForm] = createReusableTemplate();
 const isDesktop = useMediaQuery("(min-width: 768px)");
 
 const isOpen = ref(false);
 
-defineProps({
+const props = defineProps({
   habit: {
     type: Object as () => Habit,
     required: true,
@@ -36,6 +35,8 @@ defineProps({
 });
 
 const { deleteHabit, updateHabit } = useHabits();
+
+const longestStreak = calculateLongestStreak(props.habit.activities);
 </script>
 
 <template>
@@ -47,19 +48,43 @@ const { deleteHabit, updateHabit } = useHabits();
         <div class="flex flex-col gap-1">
           <div class="[&_svg]:!h-20 [&_svg]:!w-20" v-html="habit.icon"></div>
           <div class="text-zinc-100 text-xl">{{ habit.title }}</div>
+          <div class="flex gap-1 items-center pt-2">
+            <svg
+              width="2rem"
+              height="2rem"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                class="fill-brand"
+                d="m11 21l-3.175-2.85q-1.8-1.625-3.088-2.9t-2.125-2.4t-1.225-2.175T1 8.475q0-2.35 1.575-3.912T6.5 3q1.3 0 2.475.538T11 5.075q.85-1 2.025-1.537T15.5 3q2.125 0 3.563 1.288T20.85 7.3q-.5-.2-1.05-.25T18.675 7q-2.125 0-3.9 1.713T13 13q0 1.2.525 2.438T15 17.45q-.475.425-1.237 1.088T12.45 19.7zm6.95-4.825L15.1 13.35l1.425-1.4l1.425 1.4l3.525-3.525l1.425 1.4z"
+              />
+            </svg>
+            <span> Longest Streak: </span>
+            <span>{{ longestStreak }} days</span>
+          </div>
           <div class="flex items-center gap-1 mt-2">
-            <span
-              class="icon-[hugeicons--time-quarter-pass] h-7 w-7 text-amber-400/50"
-              role="img"
-              aria-hidden="true"
-            />
+            <svg
+              width="2rem"
+              height="2rem"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                class="fill-brand"
+                d="m12 8l-1.55 3.45L7 13l3.45 1.55L12 18l1.55-3.45L17 13l-3.45-1.55L12 8ZM9 3V1h6v2H9Zm3 19q-1.85 0-3.488-.713T5.65 19.35q-1.225-1.225-1.938-2.863T3 13q0-1.85.713-3.488T5.65 6.65q1.225-1.225 2.863-1.938T12 4q1.55 0 2.975.5t2.675 1.45l1.4-1.4l1.4 1.4l-1.4 1.4Q20 8.6 20.5 10.025T21 13q0 1.85-.713 3.488T18.35 19.35q-1.225 1.225-2.863 1.938T12 22Z"
+              />
+            </svg>
+
             <span> Started from: </span>
-            <span>{{ habit.longestStreak }} days</span>
+            <span>{{
+              dayjs(Number(habit.activities[0].date)).format("MMM D, YYYY")
+            }}</span>
           </div>
         </div>
         <div class="flex gap-2 flex-col items-end">
-          <DropdownMenu>
-            <DropdownMenuTrigger class="w-fit">
+          <DropdownMenu
+            ><DropdownMenuTrigger class="w-fit">
               <Button variant="ghost" class="px-1">
                 <span
                   class="icon-[gg--more-vertical] h-6 w-6"
@@ -77,15 +102,6 @@ const { deleteHabit, updateHabit } = useHabits();
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <div class="flex gap-1 items-center">
-            <span
-              class="icon-[ant-design--stock-outlined] h-8 w-8 text-amber-400"
-              role="img"
-              aria-hidden="true"
-            />
-            <span> Longest Streak: </span>
-            <span>{{ habit.longestStreak }} days</span>
-          </div>
         </div>
       </div>
       <Separator class="mt-2" />

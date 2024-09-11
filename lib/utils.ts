@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import dayjs from "dayjs";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -27,4 +28,33 @@ export function checkActivitiesForToday(activities: Activity[]): boolean {
   });
 
   return isDoneForToday;
+}
+
+export function calculateLongestStreak(activities: Activity[]): number {
+  if (activities.length === 0) return 0;
+
+  // Sort activities by date
+  const sortedActivities = activities.sort((a, b) =>
+    dayjs(a.date).diff(dayjs(b.date))
+  );
+
+  let currentStreak = 1;
+  let longestStreak = 1;
+  let previousDate = dayjs(sortedActivities[0].date);
+
+  for (let i = 1; i < sortedActivities.length; i++) {
+    const currentDate = dayjs(sortedActivities[i].date);
+    const diffDays = currentDate.diff(previousDate, "day");
+
+    if (diffDays === 1) {
+      currentStreak++;
+      longestStreak = Math.max(longestStreak, currentStreak);
+    } else if (diffDays > 1) {
+      currentStreak = 1;
+    }
+
+    previousDate = currentDate;
+  }
+
+  return longestStreak;
 }
