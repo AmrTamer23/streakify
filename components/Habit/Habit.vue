@@ -77,9 +77,10 @@ const longestStreak = calculateLongestStreak(props.habit.activities);
             </svg>
 
             <span> Started from: </span>
-            <span>{{
-              dayjs(Number(habit.activities[0].date)).format("MMM D, YYYY")
+            <span v-if="habit?.activities?.[0]?.date">{{
+              dayjs(Number(habit.activities?.[0].date)).format("MMM D, YYYY")
             }}</span>
+            <span v-else>N/A</span>
           </div>
         </div>
         <div class="flex gap-2 flex-col items-end">
