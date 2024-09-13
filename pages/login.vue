@@ -23,7 +23,7 @@ const { signIn, user } = useAuth();
         Welcome Back<span class="text-amber-500">!</span>
       </h1>
     </div>
-    <div v-if="!user">
+    <div v-if="!user" class="w-full">
       <form
         @submit.prevent="
           signIn(email, password).then(() => router.push('/dashboard'))
@@ -57,7 +57,9 @@ const { signIn, user } = useAuth();
       <div class="mt-6 mb-3 w-full flex justify-center items-center">
         <p>
           Don't have an account?
-          <NuxtLink to="/register" class="hover:text-amber-500"
+          <NuxtLink
+            to="/register"
+            class="hover:text-amber-500 underline underline-offset-8"
             >Sign up</NuxtLink
           >
         </p>

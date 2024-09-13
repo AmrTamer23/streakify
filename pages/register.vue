@@ -63,7 +63,7 @@ async function signUp() {
   <main class="*:mx-auto flex flex-col gap-4 *:max-w-lg mt-24">
     <div v-if="!user">
       <div>
-        <h1 class="text-4xl font-semibold">
+        <h1 class="text-4xl font-semibold text-center w-full mb-4">
           Welcome <span class="text-amber-500">!</span>
         </h1>
       </div>
@@ -114,36 +114,15 @@ async function signUp() {
           >Register</Button
         >
       </form>
-      <div>
+      <div class="mt-6 mb-3 w-full flex justify-center items-center">
         <p>
           Have an account?
-          <NuxtLink to="/login" class="hover:text-amber-500">Login</NuxtLink>
+          <NuxtLink
+            to="/login"
+            class="hover:text-amber-500 underline underline-offset-8"
+            >Login</NuxtLink
+          >
         </p>
-      </div>
-      <div class="flex items-center w-full">
-        <Separator class="flex-1 h-[0.05rem]" />
-        <span class="flex-0 px-2 text-lg italic font-thin"> OR </span>
-        <Separator class="flex-1 h-[0.05rem]" />
-      </div>
-      <div class="flex gap-2 w-full max-sm:flex-col max-sm:gap-4">
-        <Button class="flex-grow flex justify-center items-end gap-2">
-          <Icon
-            name="logos:google-icon"
-            size="1.5rem"
-            class="[&_path]:stroke-black"
-          ></Icon>
-          <span> Continue with Google </span>
-        </Button>
-        <Button
-          class="flex-grow flex justify-center items-end gap-2 group/btnGithub"
-        >
-          <Icon
-            name="logos:github-icon"
-            size="1.6rem"
-            class="[&_path]:fill-white group-hover/btnGithub:[&_path]:fill-[#333]"
-          ></Icon>
-          <span> Continue with GitHub </span>
-        </Button>
       </div>
     </div>
     <div v-else>
