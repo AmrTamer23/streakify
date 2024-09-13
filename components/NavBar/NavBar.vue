@@ -16,7 +16,7 @@ const handleSignOut = async () => {
 </script>
 
 <template>
-  <nav class="flex justify-between items-center px-12">
+  <nav class="flex justify-between items-center px-4">
     <NuxtLink to="/" class="w-fit p-0">
       <span
         class="font-semibold font-pt-mono text-4xl text-brand pointer-events-none select-none"
