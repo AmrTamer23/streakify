@@ -1,8 +1,10 @@
 import { ref, watch } from "vue";
+import { useToast } from "@/components/ui/toast";
 
 export const useAuth = () => {
   const user = useSupabaseUser();
   const supabase = useSupabaseClient();
+  const toast = useToast();
   const isLoading = ref(true);
 
   watch(
@@ -18,12 +20,28 @@ export const useAuth = () => {
       email,
       password,
     });
-    if (error) throw error;
+    if (error) {
+      toast.toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+      return false;
+    }
+    return true;
   };
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+    if (error) {
+      toast.toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+      return false;
+    }
+    return true;
   };
 
   return {

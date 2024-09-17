@@ -4,7 +4,6 @@ definePageMeta({
 });
 import { Input } from "@/components/ui/input/index";
 import { Button } from "@/components/ui/button/index";
-import { Separator } from "@/components/ui/separator/index";
 import { useRouter, useState } from "nuxt/app";
 import { Toaster } from "~/components/ui/toast";
 const email = useState<string>("email");
@@ -26,7 +25,9 @@ const { signIn, user } = useAuth();
     <div v-if="!user" class="w-full">
       <form
         @submit.prevent="
-          signIn(email, password).then(() => router.push('/dashboard'))
+          signIn(email, password).then((res) => {
+            if (res) router.push('/dashboard');
+          })
         "
         class="flex flex-col gap-6"
       >
