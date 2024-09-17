@@ -7,12 +7,25 @@ interface ActivityData {
   value: number;
 }
 
-const data = ref<any>([]);
-
-const formatXAxis = (tick: string | Date) => {
-  const date = new Date(tick);
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-};
+const data = ref<
+  {
+    date: string;
+    "Habits Completed": number;
+  }[]
+>([
+  {
+    date: "2024-01-01",
+    "Habits Completed": 0,
+  },
+  {
+    date: "2024-01-02",
+    "Habits Completed": 0,
+  },
+  {
+    date: "2024-01-03",
+    "Habits Completed": 0,
+  },
+]);
 
 onMounted(async () => {
   try {
@@ -31,9 +44,6 @@ onMounted(async () => {
     }
     const activities = await response.json();
 
-    console.log("Fetched activities:", activities);
-
-    // Process the data for the chart
     const accumulatedData: { [date: string]: number } = {};
     activities.forEach((activity: any) => {
       try {
@@ -57,13 +67,17 @@ onMounted(async () => {
         );
       }
     });
-
-    data.value = Object.entries(accumulatedData)
-      .map(([date, value]) => ({
-        date: date, // Keep as string (YYYY-MM-DD format)
-        "Habits Completed": value,
-      }))
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); // Sort by date
+    data.value = [
+      ...data.value,
+      ...Object.entries(accumulatedData)
+        .map(([date, value]) => ({
+          date: date, // Keep as string (YYYY-MM-DD format)
+          "Habits Completed": value,
+        }))
+        .sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        ),
+    ];
 
     console.log("Processed chart data:", data.value);
   } catch (error) {
