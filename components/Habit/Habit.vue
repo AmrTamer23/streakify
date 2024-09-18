@@ -114,7 +114,12 @@ const longestStreak = calculateLongestStreak(props.habit.activities);
       <div class="flex items-center justify-center">
         <Button
           class="font-semibold bg-amber-500 text-neutral-900 flex items-center justify-center gap-2 lg:w-1/2 lg:mx-auto text-lg mt-4"
-          @click="updateHabit(habit.id)"
+          @click="
+            () => {
+              updateHabit(habit.id);
+              console.log('clicked', habit.id);
+            }
+          "
           :disabled="checkActivitiesForToday(habit.activities)"
         >
           <span

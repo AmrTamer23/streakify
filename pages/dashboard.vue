@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { onMounted, watch, computed, ref } from "vue";
+import { onBeforeMount, watch, computed, ref } from "vue";
+import {
+  calculateAverageHabitsPerDay,
+  calculateCompletionRate,
+  calculateStreakCompletion,
+} from "~/lib/utils";
 
 const { user } = await useUser();
 const { fetchHabits, habits } = useHabits();
@@ -29,8 +34,16 @@ const prevPage = () => {
   }
 };
 
-onMounted(async () => {
+let completionRate = ref(0);
+let averageHabitsPerDay = ref(0);
+let streakCompletion = ref(0);
+
+onBeforeMount(async () => {
   await fetchHabits();
+  console.log(habits.value);
+  completionRate.value = calculateCompletionRate(habits.value);
+  averageHabitsPerDay.value = calculateAverageHabitsPerDay(habits.value);
+  streakCompletion.value = calculateStreakCompletion(habits.value);
 });
 
 watch(
@@ -38,75 +51,6 @@ watch(
   async (newUser) => {
     if (newUser) {
       await fetchHabits();
-    }
-  },
-  { immediate: true }
-);
-
-const calculateCompletionRate = computed(() => {
-  if (!habits.value || habits.value.length === 0) return 0;
-  const today = new Date().setHours(0, 0, 0, 0);
-  const completedHabits = habits.value.filter((habit) =>
-    habit.activities.some(
-      (activity) => new Date(activity.date).setHours(0, 0, 0, 0) === today
-    )
-  );
-  return Math.round((completedHabits.length / habits.value.length) * 100);
-});
-
-const calculateAverageHabitsPerDay = computed(() => {
-  if (!habits.value || habits.value?.length === 0) return 0;
-  const totalActivities = habits.value.reduce(
-    (sum, habit) => sum + habit.activities?.length,
-    0
-  );
-  const uniqueDates = new Set(
-    habits.value.flatMap((habit) =>
-      habit.activities.map((activity) => activity.date)
-    )
-  );
-  return uniqueDates.size === 0
-    ? 0
-    : (totalActivities / uniqueDates.size).toFixed(1);
-});
-
-const calculateStreakCompletion = computed(() => {
-  if (!habits.value || habits.value.length === 0) return 0;
-  const totalWeeklyTarget = habits.value.reduce(
-    (sum, habit) => sum + (habit.weeklyTarget || 0),
-    0
-  );
-  if (totalWeeklyTarget === 0) return 0;
-
-  const today = new Date();
-  const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
-  weekStart.setHours(0, 0, 0, 0);
-
-  const completedThisWeek = habits.value.reduce((sum, habit) => {
-    const thisWeekActivities = habit.activities.filter((activity) => {
-      const activityDate = new Date(activity.date);
-      return activityDate >= weekStart;
-    });
-    return sum + thisWeekActivities.length;
-  }, 0);
-  return Math.round((completedThisWeek / totalWeeklyTarget) * 100);
-});
-
-// Add this watch to log habits when they change
-watch(
-  habits,
-  (newHabits) => {
-    console.log("Habits updated:", newHabits);
-  },
-  { deep: true }
-);
-
-// Add this watch to refetch habits when needed
-watch(
-  habits,
-  () => {
-    if (!habits.value || habits.value.length === 0) {
-      fetchHabits();
     }
   },
   { immediate: true }
@@ -198,25 +142,21 @@ watch(
               <div
                 class="bg-muted/20 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
               >
-                <div class="text-4xl font-bold">
-                  {{ calculateCompletionRate }}%
-                </div>
+                <div class="text-4xl font-bold">{{ completionRate }}%</div>
                 <div class="text-zinc-300 text-sm">Habit Completion Rate</div>
               </div>
               <div
                 class="bg-muted/20 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
               >
                 <div class="text-4xl font-bold">
-                  {{ calculateAverageHabitsPerDay }}
+                  {{ averageHabitsPerDay }}
                 </div>
                 <div class="text-zinc-300 text-sm">Average Habits per Day</div>
               </div>
               <div
                 class="bg-muted/20 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
               >
-                <div class="text-4xl font-bold">
-                  {{ calculateStreakCompletion }}%
-                </div>
+                <div class="text-4xl font-bold">{{ streakCompletion }}%</div>
                 <div class="text-zinc-300 text-sm">Streak Completion</div>
               </div>
             </div>

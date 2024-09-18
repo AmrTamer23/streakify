@@ -75,7 +75,29 @@ export const useHabits = () => {
         headers: { "Content-Type": "application/json" },
         body: habitData,
       });
-      fetchHabits();
+
+      if (response) {
+        // Update the local state
+        const updatedHabits = habits.value.map((habit) =>
+          habit.id === id
+            ? {
+                ...habit,
+                activities: [
+                  ...habit.activities,
+                  {
+                    date: Date.now().toString(),
+                    id: Date.now(),
+                    habitId: id,
+                    x: 0,
+                    y: 1,
+                  },
+                ],
+              }
+            : habit
+        );
+        habits.value = updatedHabits;
+      }
+
       console.log(response);
     } catch (err) {
       console.error(err);
