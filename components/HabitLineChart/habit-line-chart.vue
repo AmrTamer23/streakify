@@ -7,27 +7,15 @@ interface ActivityData {
   value: number;
 }
 
-const data = ref<
-  {
-    date: string;
-    "Habits Completed": number;
-  }[]
->([
+const data = ref<{ date: string; "Habits Completed": number }[]>([
   {
     date: "2024-01-01",
     "Habits Completed": 0,
   },
-  {
-    date: "2024-01-02",
-    "Habits Completed": 0,
-  },
-  {
-    date: "2024-01-03",
-    "Habits Completed": 0,
-  },
 ]);
+const isLoading = ref(true);
 
-onMounted(async () => {
+onBeforeMount(async () => {
   try {
     // Fetch activity data for the given habit
     const response = await fetch(
@@ -71,7 +59,7 @@ onMounted(async () => {
       ...data.value,
       ...Object.entries(accumulatedData)
         .map(([date, value]) => ({
-          date: date, // Keep as string (YYYY-MM-DD format)
+          date: date,
           "Habits Completed": value,
         }))
         .sort(
@@ -82,13 +70,17 @@ onMounted(async () => {
     console.log("Processed chart data:", data.value);
   } catch (error) {
     console.error("Error fetching or processing data:", error);
-    data.value = []; // Ensure chartData is empty on error
+    data.value = []; // Ensure data is empty on error
+  } finally {
+    isLoading.value = false;
   }
 });
 </script>
 
 <template>
+  <div v-if="isLoading">Loading...</div>
   <LineChart
+    v-else
     :data="data"
     index="date"
     :categories="['Habits Completed']"
