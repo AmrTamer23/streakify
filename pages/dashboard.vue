@@ -6,21 +6,11 @@ import {
   calculateStreakCompletion,
 } from "~/lib/utils";
 
-const { user } = await useUser();
-const { fetchHabits, habits } = useHabits();
-
 const itemsPerPage = 6;
 const currentPage = ref(1);
-
-const paginatedHabits = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  return habits.value?.slice(start, end);
-});
-
-const totalPages = computed(() =>
-  Math.ceil(habits.value?.length / itemsPerPage)
-);
+const completionRate = ref(0);
+const averageHabitsPerDay = ref(0);
+const streakCompletion = ref(0);
 
 const nextPage = () => {
   if (currentPage.value < totalPages.value) {
@@ -34,9 +24,17 @@ const prevPage = () => {
   }
 };
 
-let completionRate = ref(0);
-let averageHabitsPerDay = ref(0);
-let streakCompletion = ref(0);
+const { fetchHabits, habits } = useHabits();
+
+const paginatedHabits = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  return habits.value?.slice(start, end);
+});
+
+const totalPages = computed(() =>
+  Math.ceil(habits.value?.length / itemsPerPage)
+);
 
 onBeforeMount(async () => {
   await fetchHabits();
@@ -46,13 +44,14 @@ onBeforeMount(async () => {
 });
 
 watch(
-  () => user,
-  async (newUser) => {
-    if (newUser) {
-      await fetchHabits();
+  () => habits.value,
+  async (newHabits) => {
+    if (newHabits) {
+      completionRate.value = calculateCompletionRate(newHabits);
+      averageHabitsPerDay.value = calculateAverageHabitsPerDay(newHabits);
+      streakCompletion.value = calculateStreakCompletion(newHabits);
     }
-  },
-  { immediate: true }
+  }
 );
 </script>
 

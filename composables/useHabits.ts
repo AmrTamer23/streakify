@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 export const useHabits = () => {
-  const habits = useState<Habit[]>("habits");
+  const habits = useState<Habit[]>("habits", () => [] as Habit[]);
   const isLoading = ref(false);
   const error = ref(null);
 
@@ -26,7 +26,6 @@ export const useHabits = () => {
   };
 
   const createHabit = async (icon: string, title: string, target: number) => {
-    // Create a temporary habit
     const tempHabit = {
       id: Date.now(), // temporary ID
       icon,
@@ -77,7 +76,6 @@ export const useHabits = () => {
       });
 
       if (response) {
-        // Update the local state
         const updatedHabits = habits.value.map((habit) =>
           habit.id === id
             ? {

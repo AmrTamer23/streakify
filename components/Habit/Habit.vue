@@ -36,7 +36,18 @@ const props = defineProps({
 
 const { deleteHabit, updateHabit } = useHabits();
 
-const longestStreak = calculateLongestStreak(props.habit.activities);
+const longestStreak = ref<number>(
+  calculateLongestStreak(props.habit.activities)
+);
+
+watch(
+  () => props.habit,
+  async (updated) => {
+    if (updated) {
+      longestStreak.value = calculateLongestStreak(props.habit.activities);
+    }
+  }
+);
 </script>
 
 <template>
