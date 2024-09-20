@@ -117,7 +117,6 @@ const longestStreak = calculateLongestStreak(props.habit.activities);
           @click="
             () => {
               updateHabit(habit.id);
-              console.log('clicked', habit.id);
             }
           "
           :disabled="checkActivitiesForToday(habit.activities)"

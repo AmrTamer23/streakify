@@ -40,7 +40,6 @@ let streakCompletion = ref(0);
 
 onBeforeMount(async () => {
   await fetchHabits();
-  console.log(habits.value);
   completionRate.value = calculateCompletionRate(habits.value);
   averageHabitsPerDay.value = calculateAverageHabitsPerDay(habits.value);
   streakCompletion.value = calculateStreakCompletion(habits.value);

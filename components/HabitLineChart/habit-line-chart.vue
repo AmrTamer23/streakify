@@ -17,7 +17,6 @@ const isLoading = ref(true);
 
 onBeforeMount(async () => {
   try {
-    // Fetch activity data for the given habit
     const response = await fetch(
       `/api/line-chart?userId=7b1580aa-4a93-4e71-a9b4-4278dff926fd`,
       {
@@ -66,11 +65,9 @@ onBeforeMount(async () => {
           (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
         ),
     ];
-
-    console.log("Processed chart data:", data.value);
   } catch (error) {
     console.error("Error fetching or processing data:", error);
-    data.value = []; // Ensure data is empty on error
+    data.value = [];
   } finally {
     isLoading.value = false;
   }

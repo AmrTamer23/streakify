@@ -97,8 +97,6 @@ export const useHabits = () => {
         );
         habits.value = updatedHabits;
       }
-
-      console.log(response);
     } catch (err) {
       console.error(err);
     } finally {

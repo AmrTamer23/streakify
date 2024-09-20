@@ -8,7 +8,6 @@ export default defineEventHandler(async (e) => {
 });
 
 export const delHabit = async (habitId: string) => {
-  console.log("Deleting....");
   return await prisma.habit.delete({
     where: {
       id: Number(habitId),
