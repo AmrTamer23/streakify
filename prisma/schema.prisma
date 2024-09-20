@@ -26,6 +26,8 @@ model Habit {
   weeklyTarget  Int        @default(0)
   activities    Activity[]
   user          User       @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model Activity {
@@ -35,4 +37,6 @@ model Activity {
   y       Int
   date    String
   habit   Habit  @relation(fields: [habitId], references: [id], onDelete: Cascade)
+
+  @@index([habitId])
 }
