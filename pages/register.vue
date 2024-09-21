@@ -59,7 +59,7 @@ async function signUp() {
 </script>
 
 <template>
-  <main class="*:mx-auto flex flex-col gap-4 *:max-w-lg mt-24">
+  <main class="flex flex-col gap-4 *:max-w-lg mt-24 mx-8">
     <div v-if="!user">
       <div>
         <h1 class="text-4xl font-semibold text-center w-full mb-4">
@@ -67,7 +67,9 @@ async function signUp() {
         </h1>
       </div>
       <form @submit.prevent="signUp" class="flex flex-col gap-6">
-        <div class="flex gap-4 items-center">
+        <div
+          class="flex gap-6 lg:gap-4 items-center flex-col lg:flex-row w-full"
+        >
           <fieldset>
             <label for="name" class="sr-only"> Name </label>
             <Input
