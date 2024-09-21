@@ -34,7 +34,7 @@ onBeforeMount(async () => {
     const accumulatedData: { [date: string]: number } = {};
     activities.forEach((activity: any) => {
       try {
-        const date = new Date(Number(activity.date));
+        const date = new Date(activity.date);
         if (isNaN(date.getTime())) {
           console.error(`Invalid date: ${activity.date}`);
           return;
@@ -44,7 +44,7 @@ onBeforeMount(async () => {
           console.error(`Invalid value: ${activity.count}`);
           return;
         }
-        const dateString = date.toISOString().split("T")[0]; // Store as YYYY-MM-DD
+        const dateString = date.toISOString().split("T")[0];
         accumulatedData[dateString] =
           (accumulatedData[dateString] || 0) + value;
       } catch (error) {

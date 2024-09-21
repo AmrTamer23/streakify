@@ -4,7 +4,7 @@ import { daysBetweenDates } from "~/lib/utils";
 export default defineEventHandler(async (e) => {
   const body = await readBody(e);
   let { habitId, isDone } = body;
-  const timestamp = Date.now();
+  const timestamp = new Date().toISOString();
 
   try {
     const result = await updateHabit(isDone, habitId, timestamp);
@@ -18,7 +18,7 @@ export default defineEventHandler(async (e) => {
 export const updateHabit = async (
   isDone: boolean,
   habitId: number,
-  date: number
+  date: string
 ) => {
   const prisma = new PrismaClient();
 
@@ -43,8 +43,8 @@ export const updateHabit = async (
 
     let lastActivityDate = activity[0].date;
     let daysSinceLastActivity = daysBetweenDates(
-      Number(lastActivityDate),
-      date
+      new Date(lastActivityDate).getTime(),
+      new Date(date).getTime()
     );
 
     if (daysSinceLastActivity > 1) {

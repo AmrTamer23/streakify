@@ -83,7 +83,7 @@ export const useHabits = () => {
                 activities: [
                   ...habit.activities,
                   {
-                    date: Date.now().toString(),
+                    date: new Date().toISOString(),
                     id: Date.now(),
                     habitId: id,
                     x: 0,

@@ -17,22 +17,10 @@ export function daysBetweenDates(date1: number, date2: number): number {
 }
 
 export function checkActivitiesForToday(activities: Activity[]): boolean {
-  const now = new Date();
-  const startOfToday = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate()
-  ).getTime();
-  const startOfTomorrow = startOfToday + 24 * 60 * 60 * 1000;
-
-  const isDoneForToday: boolean = activities.some((activity) => {
-    return (
-      Number(activity.date) >= startOfToday &&
-      Number(activity.date) < startOfTomorrow
-    );
-  });
-
-  return isDoneForToday;
+  const today = dayjs().startOf("day");
+  return activities.some((activity) =>
+    dayjs(activity.date).isSame(today, "day")
+  );
 }
 
 export function calculateLongestStreak(activities: Activity[]): number {
@@ -70,7 +58,7 @@ export const calculateAverageHabitsPerDay = (habits: Habit[]): number => {
 
   for (const habit of habits) {
     for (const activity of habit.activities || []) {
-      const dateKey = new Date(activity.date).toDateString();
+      const dateKey = dayjs(activity.date).format("YYYY-MM-DD");
       activityDates.set(dateKey, (activityDates.get(dateKey) || 0) + 1);
     }
   }
@@ -83,7 +71,6 @@ export const calculateAverageHabitsPerDay = (habits: Habit[]): number => {
 
   return totalDays === 0 ? 0 : Number((totalActivities / totalDays).toFixed(1));
 };
-
 export const calculateCompletionRate = (habits: Habit[]) => {
   if (!habits || habits.length === 0) return 0;
 
@@ -91,7 +78,7 @@ export const calculateCompletionRate = (habits: Habit[]) => {
 
   const completedHabits = habits.filter((habit) =>
     habit.activities.some((activity) => {
-      const activityDate = dayjs(Number(activity.date));
+      const activityDate = dayjs(activity.date);
       return activityDate.isSame(today, "day");
     })
   );
@@ -114,7 +101,7 @@ export const calculateStreakCompletion = (habits: Habit[]) => {
 
   const completedThisWeek = habits.reduce((sum, habit) => {
     const thisWeekActivities = habit.activities.filter((activity) => {
-      const activityDate = dayjs(Number(activity.date));
+      const activityDate = dayjs(activity.date);
       return (
         activityDate.isSameOrAfter(weekStart) &&
         activityDate.isSameOrBefore(weekEnd)

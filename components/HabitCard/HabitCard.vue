@@ -35,7 +35,7 @@ function calculateWeekProgress(
   endOfWeek.setHours(23, 59, 59, 999);
 
   const weekActivities = activities.filter((activity) => {
-    const activityDate = new Date(parseInt(activity.date));
+    const activityDate = new Date(activity.date);
     return activityDate >= startOfWeek && activityDate <= endOfWeek;
   });
 
@@ -48,7 +48,7 @@ function calculateWeekProgress(
 
   const uniqueDays = new Set(
     weekActivities.map((activity) => {
-      const date = new Date(parseInt(activity.date));
+      const date = new Date(activity.date);
       return date.toDateString();
     })
   );
