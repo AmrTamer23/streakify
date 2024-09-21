@@ -55,6 +55,7 @@
     "@types/jest": "^29.5.13",
     "@volar/typescript": "^2.4.4",
     "@vueuse/nuxt": "^10.11.1",
+    "fluid-tailwind": "^1.0.3",
     "jest": "^29.7.0",
     "nuxt-icon": "^0.6.10",
     "prisma": "^5.19.1",

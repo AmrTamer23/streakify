@@ -1,21 +1,20 @@
 const animate = require("tailwindcss-animate");
 const { addDynamicIconSelectors } = require("@iconify/tailwind");
+import fluid, { extract, screens } from "fluid-tailwind";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["media"],
   safelist: ["dark"],
   prefix: "",
-  content: ["./src/**/*.{js,jsx,ts,tsx, vue}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx, vue}", extract],
 
   theme: {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
     },
+    screens,
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -90,5 +89,5 @@ module.exports = {
       },
     },
   },
-  plugins: [animate, addDynamicIconSelectors()],
+  plugins: [animate, addDynamicIconSelectors(), fluid],
 };
