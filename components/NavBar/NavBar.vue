@@ -39,7 +39,7 @@ const handleSignOut = async () => {
           <Button
             size="lg"
             variant="ghost"
-            class="font-semibold max-sm:py-0"
+            class="font-semibold max-sm:py-0 ~text-base/lg"
             aria-label="Login"
             >Login</Button
           >
