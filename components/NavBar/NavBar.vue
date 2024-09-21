@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { Button } from "@/components/ui/button";
-import DropdownMenu from "../ui/dropdown-menu/DropdownMenu.vue";
 import { useRouter } from "vue-router";
 const isNavOpen = ref(false);
-const toggleNav = () => (isNavOpen.value = !isNavOpen.value);
 
 const { signOut, user } = useAuth();
 const router = useRouter();
@@ -24,13 +22,13 @@ const handleSignOut = async () => {
         Streakify
       </span>
     </NuxtLink>
-    <ul class="flex items-center gap-2 max-md:hidden" v-if="!user">
-      <li>
+    <ul class="flex items-center gap-2" v-if="!user">
+      <li class="max-sm:hidden">
         <NuxtLink to="/register">
           <Button
             size="lg"
             variant="default"
-            class="bg-amber-500 text-neutral-800 font-semibold hover:bg-amber-600 text-lg border-0"
+            class="bg-amber-500 text-neutral-800 font-semibold hover:bg-amber-600 ~text-base/lg border-0"
             aria-label="Sign Up"
             >Sign Up</Button
           >
@@ -41,7 +39,7 @@ const handleSignOut = async () => {
           <Button
             size="lg"
             variant="ghost"
-            class="font-semibold text-lg"
+            class="font-semibold max-sm:py-0"
             aria-label="Login"
             >Login</Button
           >
@@ -53,7 +51,7 @@ const handleSignOut = async () => {
         <Button
           size="lg"
           variant="ghost"
-          class="font-semibold text-lg hover:bg-red-700 hover:text-white"
+          class="font-semibold ~text-base/lg hover:bg-red-700 hover:text-white max-sm:py-0"
           aria-label="Logout"
           @click="handleSignOut"
           >Logout</Button

@@ -64,14 +64,20 @@ watch(
         <Card
           class="bg-background *:text-zinc-100 !border[2px] !border-brand/20 h-full flex flex-col justify-between"
         >
-          <CardHeader class="flex items-center justify-between flex-row">
-            <div class="space-y-2">
-              <CardTitle class="text-4xl tracking-wide">Your Habits</CardTitle>
-              <CardDescription class="text-zinc-300 text-xl"
+          <CardHeader
+            class="flex items-center justify-between flex-col lg:flex-row max-sm:gap-4"
+          >
+            <div class="space-y-2 w-full">
+              <CardTitle class="~text-3xl/4xl tracking-wide"
+                >Your Habits</CardTitle
+              >
+              <CardDescription class="text-zinc-300 ~text-base/xl"
                 >Manage your daily habits.</CardDescription
               >
             </div>
-            <AddNewHabit />
+            <div class="w-full flex justify-end">
+              <AddNewHabit />
+            </div>
           </CardHeader>
           <CardContent class="overflow-y-auto flex-grow">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -124,38 +130,48 @@ watch(
           class="bg-background *:text-zinc-100 !border-[1px] !border-brand/20 shadow-lg h-fit !gap-2"
         >
           <CardHeader class="!px-6 !pt-6 !pb-0">
-            <CardTitle class="text-4xl tracking-wide">Insights</CardTitle>
-            <CardDescription class="text-zinc-100 text-lg"
+            <CardTitle class="~text-3xl/4xl tracking-wide">Insights</CardTitle>
+            <CardDescription class="text-zinc-100 ~text-sm/lg"
               >Track your progress and stay motivated.</CardDescription
             >
           </CardHeader>
           <CardContent class="flex flex-col h-fit !px-6 !py-4">
             <div class="grid grid-cols-2 gap-4">
               <div
-                class="bg-muted/20 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
+                class="bg-zinc-900 border-[1px] border-brand/30 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
               >
-                <div class="text-4xl font-bold">{{ habits?.length || 0 }}</div>
-                <div class="text-zinc-300 text-sm">Habits Created</div>
+                <div class="~text-3xl/4xl font-bold">
+                  {{ habits?.length || 0 }}
+                </div>
+                <div class="text-zinc-300 ~text-xs/sm">Habits Created</div>
               </div>
               <div
-                class="bg-muted/20 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
+                class="bg-zinc-900 border-[1px] border-brand/30 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
               >
-                <div class="text-4xl font-bold">{{ completionRate }}%</div>
-                <div class="text-zinc-300 text-sm">Habit Completion Rate</div>
+                <div class="~text-3xl/4xl font-bold">{{ completionRate }}%</div>
+                <div class="text-zinc-300 ~text-xs/sm text-center">
+                  Habit Completion Rate
+                </div>
               </div>
               <div
-                class="bg-muted/20 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
+                class="bg-zinc-900 border-[1px] border-brand/30 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
               >
-                <div class="text-4xl font-bold">
+                <div class="~text-3xl/4xl font-bold">
                   {{ averageHabitsPerDay }}
                 </div>
-                <div class="text-zinc-300 text-sm">Average Habits per Day</div>
+                <div class="text-zinc-300 ~text-xs/sm text-center">
+                  Average Habits per Day
+                </div>
               </div>
               <div
-                class="bg-muted/20 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
+                class="bg-zinc-900 border-[1px] border-brand/30 rounded-lg p-4 flex flex-col items-center justify-center gap-2"
               >
-                <div class="text-4xl font-bold">{{ streakCompletion }}%</div>
-                <div class="text-zinc-300 text-sm">Streak Completion</div>
+                <div class="~text-3xl/4xl font-bold">
+                  {{ streakCompletion }}%
+                </div>
+                <div class="text-zinc-300 ~text-xs/sm text-center">
+                  Streak Completion
+                </div>
               </div>
             </div>
             <div class="mt-6 flex-grow">
@@ -164,9 +180,9 @@ watch(
           </CardContent>
         </Card>
         <Card
-          class="bg-background *:text-zinc-100 !border-[1px] shadow-lg flex-grow pt-6 h-1/2 !border-brand/20"
+          class="bg-background *:text-zinc-100 !border-[1px] shadow-lg flex-grow pt-6 h-1/2 !border-brand/20 px-0"
         >
-          <CardContent>
+          <CardContent class="px-0">
             <HabitLineChart class="h-full" />
           </CardContent>
         </Card>
