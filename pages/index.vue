@@ -4,7 +4,7 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-const features = ref([
+const features = [
   {
     title: "Track your habits",
     icon: '<svg width="2rem" height="2rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#eab308" d="M6.5 1q2.125 0 3.313 1.888T11 7q0 1.025-.213 1.95T10.3 10.6l-7.125 1.425Q2.8 11.3 2.4 10.013T2 7q0-2.575 1.275-4.288T6.5 1m1.375 17Q6.1 18 5.113 16.763T4 13.9l6.45-1.3q.2.425.375.963T11 14.675q0 1.425-.888 2.375T7.876 18M17.5 6q1.95 0 3.225 1.713T22 12q0 1.725-.4 3.013t-.775 2.012L13.7 15.6q-.275-.725-.487-1.65T13 12q0-2.225 1.188-4.112T17.5 6m-1.375 17q-1.35 0-2.238-.95T13 19.675q0-.575.175-1.112t.375-.963l6.425 1.3q-.125 1.625-1.1 2.863T16.125 23"/></svg>',
@@ -29,22 +29,24 @@ const features = ref([
     description:
       "Streakify helps you break bad habits by tracking your progress.",
   },
-]);
+];
 </script>
 
 <template>
   <main class="*:mx-auto relative z-10">
-    <div class="w-full mt-28 flex flex-col gap-8 relative">
-      <h1 class="text-4xl font-semibold text-center w-full">
-        Welcome to
+    <div class="w-full ~mt-14/28 flex flex-col gap-8 relative">
+      <h1
+        class="text-4xl font-semibold text-center w-full flex flex-col gap-2 lg:flex-row"
+      >
+        <span> Welcome to </span>
         <span class="text-amber-500 font-pt-mono text-5xl">Streakify</span>
       </h1>
-      <p class="w-full text-center text-2xl text-neutral-300">
+      <p class="w-full text-center ~text-lg/2xl text-neutral-300">
         A habit tracking app that helps you build good habits and break bad
         ones.
       </p>
       <div class="w-full flex flex-col gap-8">
-        <div class="grid grid-cols-2 gap-8 mx-auto">
+        <div class="grid lg:grid-cols-2 gap-8 mx-auto px-8">
           <neuCard
             v-for="feature in features"
             :key="feature.title"
@@ -52,14 +54,14 @@ const features = ref([
           />
         </div>
       </div>
-      <div class="flex gap-4 mx-auto">
+      <div class="flex gap-4 mx-auto flex-col-reverse lg:flex-row max-sm:mb-8">
         <a
           href="https://github.com/AmrTamer23/streakify"
           rel="noopener noreferrer"
           target="_blank"
         >
           <Button
-            class="text-xl px-4 py-6 items-center bg-transparent gap-2 group/gh hover:bg-amber-600"
+            class="~text-lg/xl px-4 py-6 items-center bg-transparent gap-2 group/gh hover:bg-amber-600"
           >
             <span
               class="icon-[bi--github] text-neutral-100 h-7 w-7 group-hover/gh:text-neutral-950"
@@ -71,7 +73,7 @@ const features = ref([
         >
         <NuxtLink to="/login">
           <Button
-            class="text-xl px-4 py-6 bg-amber-600 text-neutral-950 items-center gap-1"
+            class="~text-lg/xl px-4 py-6 bg-brand text-neutral-950 items-center gap-1 w-full"
           >
             <span> Get Started </span>
             <span
