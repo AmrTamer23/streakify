@@ -1,7 +1,6 @@
 import { defineNuxtRouteMiddleware, navigateTo } from "nuxt/app";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  //@ts-ignore
   const user = await useSupabaseUser();
   if (!user?.value && to.path === "/dashboard") {
     return navigateTo("/login");

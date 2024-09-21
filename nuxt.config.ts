@@ -35,4 +35,10 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: "2024-09-06",
+  plugins: [
+    {
+      mode: "client",
+      src: "~/plugins/vue3-heatmap.ts",
+    },
+  ],
 });

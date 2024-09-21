@@ -1,9 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-//@ts-ignore
 export default defineEventHandler(async (e) => {
-  // @ts-ignore
   const body = await readBody(e);
   const { name, email, username, id } = body;
   return await addUser(id, name, email, username);

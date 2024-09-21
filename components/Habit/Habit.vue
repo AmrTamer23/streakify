@@ -42,7 +42,26 @@ const longestStreak = ref<number>(
 const heatmapValues = computed(() => {
   const startDate = dayjs().startOf("year");
   const endDate = dayjs().endOf("year");
-  const dateRange = endDate.diff(startDate, "day") + 1;
+  const values: {
+    date: string;
+    count: number;
+  }[] = [];
+
+  for (
+    let date = startDate;
+    date.isBefore(endDate);
+    date = date.add(1, "day")
+  ) {
+    const activity = props.habit.activities.find((activity) =>
+      dayjs(activity.date).isSame(date, "day")
+    );
+    values.push({
+      date: date.format("YYYY-MM-DD"),
+      count: activity ? 1 : 0,
+    });
+  }
+
+  return values;
 });
 
 console.log(heatmapValues.value, "heatmapValues.value");
@@ -124,14 +143,30 @@ watch(
         </div>
       </div>
       <Separator class="mt-2" />
-      <div class="w-[50rem] overflow-x-auto">
-        <!-- <calendar-heatmap
+      <div class="w-[50rem] overflow-x-auto -mt-4">
+        <calendar-heatmap
           :values="heatmapValues"
-          :start-date="dayjs().startOf('year')"
-          :end-date="dayjs().endOf('year')"
-          :tooltip-unit="'activities'"
+          :start-date="
+            habit.activities.length > 0
+              ? dayjs(habit.activities[0].date)
+                  .startOf('day')
+                  .format('YYYY-MM-DD')
+              : dayjs().startOf('day').format('YYYY-MM-DD')
+          "
+          :end-date="dayjs().add(1, 'year').format('YYYY-MM-DD')"
+          :round="2"
+          :max="1"
+          :tooltip="true"
+          :range-color="[
+            '#303030',
+            '#303030',
+            '#216e39',
+            '#216e39',
+            '#216e39',
+            '#216e39',
+          ]"
           dark-mode
-        /> -->
+        />
       </div>
       <Separator />
       <div class="flex items-center justify-center">
@@ -184,45 +219,16 @@ watch(
   </Drawer>
 </template>
 
-<style scoped>
-/* Article - https://bitsofco.de/github-contribution-graph-css-grid/ */
-
-/* Grid-related CSS */
-
-:root {
-  --square-size: 1.5vh;
-  --square-gap: 0.25rem;
-  --week-width: calc(var(--square-size) + var(--square-gap));
+<style>
+div.vch__legend {
+  display: none !important;
 }
 
-.squares {
-  grid-area: squares;
+g.vch__days__labels__wrapper {
+  display: none !important;
 }
 
-.graph {
-  display: inline-grid;
-  grid-template-areas: "squares";
-  grid-template-columns: auto 1fr;
-  grid-gap: 10px;
-}
-
-.squares {
-  display: grid;
-  grid-gap: var(--square-gap);
-  grid-template-rows: repeat(7, var(--square-size));
-}
-
-.squares {
-  grid-auto-flow: column;
-  grid-auto-columns: var(--square-size);
-}
-
-.squares li {
-  background-color: #ebedf010;
-  border-radius: 15%;
-}
-
-.squares li[data-level="3"] {
-  @apply bg-emerald-800;
+g.vch__months__labels__wrapper {
+  display: none !important;
 }
 </style>

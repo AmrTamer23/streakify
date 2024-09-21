@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
 
     const chartData = activities.reduce<Record<string, number>>(
       (acc, activity) => {
-        const date = activity.date;
+        const date = activity.date.split("T")[0];
         if (!acc[date]) {
           acc[date] = 0;
         }
@@ -35,7 +35,6 @@ export default defineEventHandler(async (event) => {
       },
       {}
     );
-
     const lineChartData = Object.entries(chartData).map(([date, count]) => ({
       date,
       count,

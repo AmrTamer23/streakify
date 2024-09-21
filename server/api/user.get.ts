@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-//@ts-ignore
 export default defineEventHandler(async (e) => {
   const id = e.path.split("?").pop();
   if (!id) {

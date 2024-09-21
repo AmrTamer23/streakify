@@ -1,8 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-//@ts-ignore
 export default defineEventHandler(async (e) => {
-  // @ts-ignore
   const body = await readBody(e);
   const { icon, title, userId, target } = body;
   return await addHabit(icon, title, userId, target);
