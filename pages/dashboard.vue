@@ -183,7 +183,10 @@ watch(
           class="bg-background *:text-zinc-100 !border-[1px] shadow-lg flex-grow pt-6 h-1/2 !border-brand/20 px-0"
         >
           <CardContent class="px-0">
-            <HabitLineChart class="h-full" />
+            <HabitLineChart
+              class="h-full"
+              :activities="habits.map((habit) => habit.activities).flat()"
+            />
           </CardContent>
         </Card>
       </div>

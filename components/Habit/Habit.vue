@@ -64,8 +64,6 @@ const heatmapValues = computed(() => {
   return values;
 });
 
-console.log(heatmapValues.value, "heatmapValues.value");
-
 watch(
   () => props.habit,
   async (updated) => {

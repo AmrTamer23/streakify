@@ -36,7 +36,7 @@ const features = [
   <main class="*:mx-auto relative z-10">
     <div class="w-full ~mt-14/28 flex flex-col gap-8 relative">
       <h1
-        class="text-4xl font-semibold text-center w-full flex flex-col gap-2 lg:flex-row"
+        class="text-4xl font-semibold text-center w-full flex flex-col gap-2 lg:flex-row justify-center items-center"
       >
         <span> Welcome to </span>
         <span class="text-amber-500 font-pt-mono text-5xl">Streakify</span>

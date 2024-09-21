@@ -4,7 +4,6 @@ definePageMeta({
 });
 import { Input } from "@/components/ui/input/index";
 import { Button } from "@/components/ui/button/index";
-import { Separator } from "@/components/ui/separator/index";
 import { useToast } from "@/components/ui/toast/use-toast";
 import { Toaster } from "@/components/ui/toast";
 import { useRouter, useState } from "nuxt/app";
