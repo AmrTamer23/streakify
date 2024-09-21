@@ -37,8 +37,10 @@ const { createHabit } = useHabits();
     </SheetTrigger>
     <SheetContent>
       <SheetHeader>
-        <SheetTitle class="text-zinc-200"> Create a new Habit </SheetTitle>
-        <SheetDescription class="text-zinc-300">
+        <SheetTitle class="text-zinc-200 ~text-lg/xl">
+          Create a new Habit
+        </SheetTitle>
+        <SheetDescription class="text-zinc-300 text-left">
           Fill in the details below to create a new Habit.
         </SheetDescription>
       </SheetHeader>
@@ -50,7 +52,9 @@ const { createHabit } = useHabits();
           </label>
           <Input id="title" v-model="title" class="col-span-3" />
         </div>
-        <div class="flex gap-2 items-center">
+        <div
+          class="flex lg:gap-2 gap-4 lg:items-center flex-col-reverse lg:flex-row"
+        >
           <div class="flex flex-col gap-2 items-start">
             <label for="target" class="flex flex-col gap-1">
               <span> Target </span>
@@ -59,7 +63,7 @@ const { createHabit } = useHabits();
             <NumberField
               :min="1"
               :max="7"
-              class="text-lg"
+              class="text-lg max-sm:w-full"
               v-model="targetPerWeek"
             >
               <NumberFieldContent>
