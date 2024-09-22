@@ -26,7 +26,7 @@ async function signUp() {
       password: password.value,
     });
 
-    if (data) {
+    if (!error) {
       await $fetch("/api/user", {
         body: JSON.stringify({
           id: data?.user?.id,
@@ -35,13 +35,18 @@ async function signUp() {
           email: email.value,
         }),
         method: "POST",
-      });
-      router.push("/login");
-      toast({
-        title: "Success",
-        description: "Account created successfully",
-        variant: "default",
-      });
+      })
+        .then(() => {
+          router.push("/login");
+          toast({
+            title: "Success",
+            description: "Account created successfully",
+            variant: "default",
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
 
     if (error) throw error;
