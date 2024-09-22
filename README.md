@@ -1,75 +1,62 @@
-# Nuxt 3 Minimal Starter
+# Streakify - Habit Tracking App
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Streakify is a habit tracking application designed to help users build good habits and break bad ones. With features to track progress, visualize streaks, and stay motivated, Streakify aims to enhance your productivity and personal growth.
 
-## Setup
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+
+## Features
+
+- **Track Your Habits**: Monitor your daily habits and visualize your progress.
+- **Stay Motivated**: Get reminders and insights to keep you on track.
+- **Build Good Habits**: Set targets and track your achievements.
+- **Break Bad Habits**: Identify and reduce negative behaviors.
+
+## Technologies Used
+
+- **Frontend**: Vue3, Nuxt.js, Tailwind CSS
+- **Backend**: Nuxt.js, Prisma ORM
+- **Database**: PostgreSQL (on Neon)
+- **Authentication**: Supabase
+- **Deployment**: Vercel
+
+## Contributing
+
+First you need to craete a .env file and add the following:
+
+- SUPABASE_URL
+- SUPABASE_KEY
+- DATABASE_URL (neon is recommended)
 
 Make sure to install the dependencies:
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+Run prisma init to create prisma client:
 
 ```bash
-# npm
+npx prisma init
+```
+
+Then run prisma migrate on the database:
+
+```bash
+npx prisma migrate dev
+```
+
+To run the app:
+
+```bash
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+Open your browser and visit http://localhost:3000 to see the app.
 
-Build the application for production:
+Feel free to contribute to this project by submitting pull requests or reporting issues.
 
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+---
