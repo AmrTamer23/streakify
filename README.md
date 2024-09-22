@@ -1,4 +1,4 @@
-# Streakify - Habit Tracking App
+# ⚡ Streakify - Habit Tracking App
 
 Streakify is a habit tracking application designed to help users build good habits and break bad ones. With features to track progress, visualize streaks, and stay motivated, Streakify aims to enhance your productivity and personal growth.
 
