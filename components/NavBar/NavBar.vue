@@ -50,7 +50,7 @@ const handleSignOut = async () => {
       <li>
         <Button
           size="lg"
-          variant="ghost"
+          variant="outline"
           class="font-semibold ~text-base/lg hover:bg-red-700 hover:text-white max-sm:py-0"
           aria-label="Logout"
           @click="handleSignOut"

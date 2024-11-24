@@ -56,7 +56,7 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col flex-1 h-full pb-4">
     <main
       class="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 pt-2 bg-transparent"
     >
@@ -180,11 +180,13 @@ watch(
           </CardContent>
         </Card>
         <Card
-          class="bg-background *:text-zinc-100 !border-[1px] shadow-lg flex-grow pt-6 h-1/2 !border-brand/20 px-0"
+          class="bg-background *:text-zinc-100 !border-[1px] shadow-lg flex-grow pt-6 !border-brand/20 px-0"
         >
-          <CardContent class="px-0">
+          <CardContent
+            class="px-0 flex-1 flex justify-center items-center h-full"
+          >
             <HabitLineChart
-              class="h-full"
+              class="h-full flex-1"
               :activities="habits.map((habit) => habit.activities).flat()"
             />
           </CardContent>

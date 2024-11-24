@@ -63,7 +63,9 @@ async function signUp() {
 </script>
 
 <template>
-  <main class="flex flex-col gap-4 *:max-w-lg mt-24 mx-8 lg:*:mx-auto">
+  <main
+    class="flex flex-col gap-4 *:max-w-lg mx-8 lg:*:mx-auto justify-center items-center h-full flex-1"
+  >
     <div v-if="!user">
       <div>
         <h1 class="text-4xl font-semibold text-center w-full mb-4">
