@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import neuCard from "@/components/ui/neubrutalism-card/neubrutalism-card.vue";
-definePageMeta({
-  middleware: ["auth"],
-});
+// import neuCard from "@/components/ui/neubrutalism-card/neubrutalism-card.vue";
+// definePageMeta({
+//   middleware: ["auth"],
+// });
 
 const features = [
   {
